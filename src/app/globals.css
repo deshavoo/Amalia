@@ -1,26 +1,235 @@
-@import "tailwindcss";
+/* Brand styles live in their own layer, below Tailwind utilities so classes like `hidden` still win. */
+@layer theme, base, components, amalia, utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import "tailwindcss";
+@import "./effects.css" layer(amalia);
+
+@theme {
+  --color-forest: #11312c;
+  --color-forest-deep: #0a211d;
+  --color-gold: #c6a575;
+  --color-gold-light: #e8d3a4;
+  --color-gold-deep: #a7834f;
+  --color-ivory: #f2efeb;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-readex), system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
+/* =========================================
+   Amalia Jewellery — Brand & Navbar
+========================================= */
+
+:root {
+  --amalia-green: #11312c;
+  --amalia-gold: #c6a575;
+  --amalia-ivory: #f2efeb;
+  --amalia-white: #ffffff;
+
+  /* Height of the sticky header (announcement + main bar [+ categories on lg]). */
+  --header-h: 7rem;
+}
+
+@media (min-width: 640px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --header-h: 7.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 10.75rem;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  background-color: var(--amalia-ivory);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--amalia-ivory);
+  color: var(--amalia-green);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: var(--amalia-gold);
+  color: var(--amalia-green);
+}
+
+@layer amalia {
+  .amalia-header {
+    color: var(--amalia-green);
+    font-family: inherit;
+  }
+
+  .amalia-announcement {
+    background-color: var(--amalia-green);
+    color: var(--amalia-ivory);
+  }
+
+  .amalia-brand {
+    text-decoration: none;
+    color: var(--amalia-green);
+  }
+
+  .amalia-brand-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.065em;
+    transition: color 250ms ease;
+  }
+
+  .amalia-brand:hover .amalia-brand-name {
+    color: #a7834f;
+  }
+
+  .amalia-brand-subtitle {
+    margin-top: 6px;
+    color: var(--amalia-gold);
+    font-family: Arial, sans-serif;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .amalia-icon-button {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: var(--amalia-green);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      color 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .amalia-icon-button:hover {
+    color: #a7834f;
+    background-color: rgb(198 165 117 / 10%);
+    border-color: rgb(198 165 117 / 30%);
+  }
+
+  .amalia-icon-button:focus-visible,
+  .amalia-nav-link:focus-visible,
+  .amalia-category-link:focus-visible {
+    outline: 2px solid var(--amalia-gold);
+    outline-offset: 4px;
+  }
+
+  .amalia-nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    white-space: nowrap;
+    color: var(--amalia-green);
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .amalia-nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    left: 0;
+    height: 1px;
+    background-color: var(--amalia-gold);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 250ms ease;
+  }
+
+  .amalia-nav-link:hover {
+    color: #a7834f;
+  }
+
+  .amalia-nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .amalia-category-link {
+    position: relative;
+    display: inline-flex;
+    height: 48px;
+    align-items: center;
+    white-space: nowrap;
+    color: rgb(17 49 44 / 75%);
+    font-size: 11px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 200ms ease;
+  }
+
+  .amalia-category-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: var(--amalia-gold);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 250ms ease;
+  }
+
+  .amalia-category-link:hover {
+    color: var(--amalia-green);
+  }
+
+  .amalia-category-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  @media (max-width: 639px) {
+    .amalia-icon-button {
+      width: 36px;
+      height: 36px;
+    }
+
+    .amalia-brand-name {
+      font-size: 1.9rem;
+    }
+
+    .amalia-brand-subtitle {
+      font-size: 7px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .amalia-brand-name,
+    .amalia-icon-button,
+    .amalia-nav-link,
+    .amalia-nav-link::after,
+    .amalia-category-link,
+    .amalia-category-link::after {
+      transition: none;
+    }
+  }
 }

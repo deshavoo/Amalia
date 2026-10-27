@@ -1,0 +1,736 @@
+/* =========================================
+   Amalia Jewellery — Sections, hover & motion effects
+========================================= */
+
+.amalia-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-gold-deep);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
+
+.amalia-eyebrow::before {
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.bg-forest .amalia-eyebrow,
+.bg-forest-deep .amalia-eyebrow {
+  color: var(--color-gold);
+}
+
+.text-gold-gradient {
+  background-image: linear-gradient(
+    100deg,
+    #a7834f 0%,
+    #c6a575 25%,
+    #f3e2b5 45%,
+    #c6a575 60%,
+    #a7834f 100%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: amalia-shimmer 7s linear infinite;
+}
+
+@keyframes amalia-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+/* Film grain for dark, satin-like sections */
+.grain::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  content: "";
+  mix-blend-mode: overlay;
+  opacity: 0.12;
+}
+
+.amalia-sticky-panel {
+  top: var(--header-h);
+  height: calc(100svh - var(--header-h));
+}
+
+.amalia-spin-slow {
+  animation: amalia-spin 60s linear infinite;
+}
+
+@keyframes amalia-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* =========================================
+   Buttons
+========================================= */
+
+.amalia-btn {
+  --tx: 0px;
+  --ty: 0px;
+
+  position: relative;
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-inline: 2rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  isolation: isolate;
+  cursor: pointer;
+  transform: translate3d(var(--tx), var(--ty), 0);
+  transition:
+    transform 450ms var(--ease-luxe),
+    color 400ms ease,
+    border-color 400ms ease,
+    box-shadow 400ms ease;
+}
+
+/* Fill wipe */
+.amalia-btn::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 550ms var(--ease-luxe);
+}
+
+/* Light sweep */
+.amalia-btn::after {
+  position: absolute;
+  inset-block: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgb(255 255 255 / 55%),
+    transparent
+  );
+  content: "";
+  transform: skewX(-20deg);
+}
+
+.amalia-btn:hover::before {
+  transform: scaleX(1);
+}
+
+.amalia-btn:hover::after {
+  left: 130%;
+  transition: left 900ms var(--ease-luxe);
+}
+
+.amalia-btn:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.amalia-btn--gold {
+  background: linear-gradient(
+    110deg,
+    #a7834f,
+    #c6a575 40%,
+    #e8d3a4 70%,
+    #c6a575
+  );
+  color: var(--color-forest);
+  box-shadow: 0 10px 30px -10px rgb(198 165 117 / 60%);
+}
+
+.amalia-btn--gold::before {
+  background: var(--color-ivory);
+}
+
+.amalia-btn--gold:hover {
+  box-shadow: 0 18px 40px -12px rgb(198 165 117 / 75%);
+}
+
+.amalia-btn--ghost {
+  border: 1px solid rgb(242 239 235 / 35%);
+  color: var(--color-ivory);
+  backdrop-filter: blur(6px);
+}
+
+.amalia-btn--ghost::before {
+  background: var(--color-ivory);
+}
+
+.amalia-btn--ghost:hover {
+  border-color: var(--color-ivory);
+  color: var(--color-forest);
+}
+
+.amalia-btn--forest {
+  border: 1px solid var(--color-forest);
+  color: var(--color-forest);
+}
+
+.amalia-btn--forest::before {
+  background: var(--color-forest);
+}
+
+.amalia-btn--forest:hover {
+  color: var(--color-ivory);
+}
+
+/* =========================================
+   Hero
+========================================= */
+
+.amalia-hero {
+  --mx: 50%;
+  --my: 40%;
+}
+
+.amalia-hero-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--mx) var(--my),
+    rgb(232 211 164 / 16%),
+    transparent 60%
+  );
+}
+
+.amalia-halo {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(198 165 117 / 35%);
+  border-radius: 999px;
+}
+
+.amalia-halo::before,
+.amalia-halo::after {
+  position: absolute;
+  border-radius: inherit;
+  content: "";
+}
+
+.amalia-halo::before {
+  inset: -14px;
+  border: 1px dashed rgb(198 165 117 / 25%);
+  animation: amalia-spin 40s linear infinite;
+}
+
+.amalia-halo::after {
+  inset: 0;
+  background: radial-gradient(circle, rgb(198 165 117 / 22%), transparent 70%);
+  animation: amalia-pulse 4s ease-in-out infinite;
+}
+
+@keyframes amalia-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    scale: 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.25;
+  }
+}
+
+.amalia-wordmark-reveal {
+  position: relative;
+  animation: amalia-wipe 1.6s var(--ease-luxe) 0.5s both;
+}
+
+.amalia-wordmark-reveal::after {
+  position: absolute;
+  inset-block: -10%;
+  left: -20%;
+  width: 18%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgb(243 226 181 / 65%),
+    transparent
+  );
+  content: "";
+  mix-blend-mode: overlay;
+  opacity: 0;
+  animation: amalia-glint 2.4s var(--ease-luxe) 1.4s both;
+}
+
+@keyframes amalia-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+    filter: blur(6px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes amalia-glint {
+  0% {
+    left: -20%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    left: 110%;
+    opacity: 0;
+  }
+}
+
+.amalia-sparkle {
+  position: absolute;
+  z-index: 0;
+  rotate: 45deg;
+  background: linear-gradient(135deg, #f3e2b5, #a7834f);
+  box-shadow: 0 0 18px rgb(232 211 164 / 70%);
+  pointer-events: none;
+  animation: amalia-float 7s ease-in-out infinite;
+}
+
+@keyframes amalia-float {
+  0%,
+  100% {
+    opacity: 0.25;
+    translate: 0 0;
+  }
+  50% {
+    opacity: 1;
+    translate: 0 -22px;
+  }
+}
+
+.amalia-scroll-line {
+  position: relative;
+  width: 1px;
+  height: 3rem;
+  overflow: hidden;
+  background: rgb(242 239 235 / 20%);
+}
+
+.amalia-scroll-line::after {
+  position: absolute;
+  inset: 0;
+  background: var(--color-gold);
+  content: "";
+  animation: amalia-drip 2.2s var(--ease-luxe) infinite;
+}
+
+@keyframes amalia-drip {
+  from {
+    translate: 0 -100%;
+  }
+  to {
+    translate: 0 100%;
+  }
+}
+
+/* =========================================
+   Marquee
+========================================= */
+
+.amalia-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: amalia-marquee 38s linear infinite;
+}
+
+.amalia-marquee:hover .amalia-marquee-track {
+  animation-play-state: paused;
+}
+
+.amalia-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2.5rem;
+  padding-inline-end: 2.5rem;
+}
+
+@keyframes amalia-marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+
+/* =========================================
+   Collection cards
+========================================= */
+
+.amalia-collection-card {
+  --mx: 50%;
+  --my: 50%;
+
+  border-radius: 1.5rem;
+}
+
+.amalia-collection-image {
+  scale: 1.02;
+  transition:
+    scale 1.6s var(--ease-luxe),
+    filter 1.2s var(--ease-luxe);
+}
+
+.amalia-collection-card:hover .amalia-collection-image {
+  filter: saturate(1.15) brightness(1.05);
+  scale: 1.12;
+}
+
+.amalia-collection-emblem {
+  transition:
+    rotate 1.6s var(--ease-luxe),
+    scale 1.6s var(--ease-luxe);
+}
+
+.amalia-collection-card:hover .amalia-collection-emblem {
+  rotate: 60deg;
+  scale: 1.12;
+}
+
+.amalia-spotlight {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgb(232 211 164 / 30%),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.amalia-collection-card:hover .amalia-spotlight {
+  opacity: 1;
+}
+
+.amalia-frame {
+  z-index: 1;
+  overflow: visible;
+}
+
+.amalia-frame rect {
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 1;
+  rx: 14px;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.4s var(--ease-luxe);
+}
+
+.amalia-collection-card:hover .amalia-frame rect,
+.amalia-collection-card:focus-within .amalia-frame rect {
+  stroke-dashoffset: 0;
+}
+
+.amalia-collection-title {
+  transition: translate 700ms var(--ease-luxe);
+}
+
+.amalia-collection-card:hover .amalia-collection-title {
+  translate: 0 -4px;
+}
+
+.amalia-collection-cta {
+  opacity: 0;
+  translate: 12px 0;
+  transition:
+    opacity 500ms ease,
+    translate 600ms var(--ease-luxe);
+}
+
+.amalia-collection-card:hover .amalia-collection-cta,
+.amalia-collection-card:focus-within .amalia-collection-cta {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.amalia-collection-card a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -8px;
+}
+
+@media (hover: none) {
+  .amalia-collection-cta {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* =========================================
+   Product cards
+========================================= */
+
+.amalia-product {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 700ms var(--ease-luxe);
+}
+
+.amalia-product:hover {
+  transition: transform 120ms linear;
+}
+
+.amalia-product-media {
+  transition: box-shadow 700ms var(--ease-luxe);
+}
+
+.amalia-product:hover .amalia-product-media {
+  box-shadow: 0 40px 70px -30px rgb(17 49 44 / 55%);
+}
+
+.amalia-product-img,
+.amalia-product-img-alt {
+  transition:
+    opacity 900ms var(--ease-luxe),
+    scale 1.4s var(--ease-luxe);
+}
+
+.amalia-product-img-alt {
+  opacity: 0;
+  scale: 1.12;
+}
+
+.amalia-product:hover .amalia-product-img {
+  opacity: 0;
+  scale: 1.08;
+}
+
+.amalia-product:hover .amalia-product-img-alt {
+  opacity: 1;
+  scale: 1;
+}
+
+.amalia-product-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgb(255 244 214 / 45%),
+    transparent 45%
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 500ms ease;
+}
+
+.amalia-product:hover .amalia-product-sheen {
+  opacity: 1;
+}
+
+.amalia-product-glint {
+  position: absolute;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgb(243 226 181 / 35%) 50%,
+    transparent 60%
+  );
+  translate: -60% 0;
+}
+
+.amalia-product:hover .amalia-product-glint {
+  translate: 60% 0;
+  transition: translate 1.3s var(--ease-luxe);
+}
+
+.amalia-bracket {
+  position: absolute;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  border-top: 1px solid var(--color-gold-light);
+  border-right: 1px solid var(--color-gold-light);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 500ms ease,
+    width 700ms var(--ease-luxe),
+    height 700ms var(--ease-luxe);
+}
+
+.amalia-product:hover .amalia-bracket {
+  width: 34px;
+  height: 34px;
+  opacity: 1;
+}
+
+.amalia-quick-add {
+  opacity: 0;
+  translate: 0 calc(100% + 1rem);
+  transition:
+    opacity 400ms ease,
+    translate 600ms var(--ease-luxe),
+    background-color 300ms ease;
+}
+
+.amalia-product:hover .amalia-quick-add,
+.amalia-quick-add:focus-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.amalia-wish:focus-visible,
+.amalia-quick-add:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (hover: none) {
+  .amalia-quick-add {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+/* =========================================
+   Lookbook
+========================================= */
+
+.amalia-look-img {
+  filter: saturate(0.85);
+  transition:
+    scale 1.6s var(--ease-luxe),
+    filter 1.2s var(--ease-luxe);
+}
+
+.amalia-look:hover .amalia-look-img {
+  filter: saturate(1.1);
+  scale: 1.08;
+}
+
+.amalia-look-title {
+  display: inline-block;
+  padding-bottom: 4px;
+  background-image: linear-gradient(var(--color-gold), var(--color-gold));
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 700ms var(--ease-luxe);
+}
+
+.amalia-look:hover .amalia-look-title {
+  background-size: 100% 1px;
+}
+
+/* =========================================
+   Kids, promises, footer
+========================================= */
+
+.amalia-arch {
+  border-radius: 999px 999px 1.75rem 1.75rem;
+}
+
+.amalia-orbit {
+  animation: amalia-spin 50s linear infinite;
+}
+
+.amalia-kid-tile {
+  transition:
+    translate 600ms var(--ease-luxe),
+    box-shadow 600ms var(--ease-luxe),
+    border-color 400ms ease;
+}
+
+.amalia-kid-tile:hover {
+  border-color: rgb(198 165 117 / 50%);
+  box-shadow: 0 24px 50px -28px rgb(17 49 44 / 45%);
+  translate: 0 -6px;
+}
+
+.amalia-promise {
+  transition: background-color 500ms ease;
+}
+
+.amalia-promise:hover {
+  background-color: #fff;
+}
+
+.amalia-footer-link {
+  position: relative;
+  transition: color 300ms ease;
+}
+
+.amalia-footer-link::after {
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--color-gold);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms var(--ease-luxe);
+}
+
+.amalia-footer-link:hover {
+  color: var(--color-gold-light);
+}
+
+.amalia-footer-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.amalia-footer-giant {
+  transition: color 1.2s var(--ease-luxe);
+}
+
+.amalia-footer-giant:hover {
+  color: rgb(198 165 117 / 22%);
+}
+
+/* =========================================
+   Reduced motion
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .amalia-product {
+    transform: none;
+  }
+}

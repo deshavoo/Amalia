@@ -1,0 +1,133 @@
+"use client";
+
+import { useRef } from "react";
+import Image from "next/image";
+import {
+    motion,
+    useReducedMotion,
+    useScroll,
+    useTransform,
+} from "motion/react";
+import { ArrowLeft } from "lucide-react";
+
+import MagneticLink from "@/components/ui/MagneticLink";
+import Reveal from "@/components/ui/Reveal";
+
+const steps = [
+    {
+        title: "علبة أماليا الفاخرة",
+        text: "علبة خضراء بلمسات ذهبية تحفظ القطعة وتليق بالمناسبة.",
+    },
+    {
+        title: "شريط بتوقيعنا",
+        text: "شريط ساتان يحمل أيقونة أماليا لإطلالة هدية لا تُنسى.",
+    },
+    {
+        title: "بطاقة إهداء وضمان",
+        text: "اكتبي رسالتك، ونرفق بطاقة الضمان مع كل قطعة.",
+    },
+];
+
+export default function GiftExperience() {
+    const ref = useRef<HTMLElement>(null);
+    const shouldReduceMotion = useReducedMotion();
+
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"],
+    });
+
+    const backY = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
+    const frontY = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
+    const frontRotate = useTransform(scrollYProgress, [0, 1], [-8, 6]);
+
+    return (
+        <section
+            id="gifts"
+            ref={ref}
+            aria-labelledby="gifts-title"
+            className="grain relative overflow-hidden bg-forest py-24 text-ivory sm:py-32"
+        >
+            <div className="mx-auto grid max-w-[1600px] items-center gap-16 px-4 sm:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-24 lg:px-12">
+                {/* Layered parallax photos */}
+                <div className="relative order-2 mx-auto w-full max-w-xl lg:order-1">
+                    <motion.div
+                        style={shouldReduceMotion ? undefined : { y: backY }}
+                        className="relative aspect-4/5 w-[82%] overflow-hidden rounded-[1.75rem] shadow-2xl"
+                    >
+                        <Image
+                            src="/images/campaign-box.webp"
+                            alt="علبة مجوهرات أماليا مفتوحة وبداخلها أسورة ذهبية مع شريط أخضر"
+                            fill
+                            sizes="(min-width: 1024px) 38vw, 80vw"
+                            className="object-cover"
+                        />
+                    </motion.div>
+
+                    <motion.div
+                        style={
+                            shouldReduceMotion
+                                ? undefined
+                                : { y: frontY, rotate: frontRotate }
+                        }
+                        className="absolute -bottom-10 left-0 aspect-4/5 w-[48%] overflow-hidden rounded-[1.25rem] shadow-[0_30px_80px_-20px_rgb(0_0_0/60%)] ring-1 ring-gold/30"
+                    >
+                        <Image
+                            src="/images/detail-box-lid.webp"
+                            alt="غطاء علبة أماليا الخضراء بالشعار الذهبي"
+                            fill
+                            sizes="(min-width: 1024px) 22vw, 45vw"
+                            className="object-cover"
+                        />
+                    </motion.div>
+                </div>
+
+                <div className="order-1 lg:order-2">
+                    <Reveal>
+                        <p className="amalia-eyebrow">فن الإهداء</p>
+                        <h2
+                            id="gifts-title"
+                            className="mt-4 text-3xl leading-[1.35] font-medium text-balance sm:text-4xl lg:text-5xl"
+                        >
+                            هدية تُفتح بلهفة،
+                            <span className="text-gold-gradient block">
+                                وتبقى ذكرى للأبد
+                            </span>
+                        </h2>
+                        <p className="mt-5 max-w-lg text-lg leading-8 text-ivory/70">
+                            كل قطعة من أماليا تصل في تجربة إهداء متكاملة، مصممة
+                            لتجعل لحظة الفتح جزءًا من الهدية.
+                        </p>
+                    </Reveal>
+
+                    <ol className="mt-10 space-y-3">
+                        {steps.map((step, index) => (
+                            <Reveal key={step.title} as="li" delay={index * 0.1}>
+                                <div className="amalia-step group flex gap-5 rounded-2xl border border-ivory/10 p-5 transition-colors duration-500 hover:border-gold/40 hover:bg-ivory/5">
+                                    <span className="font-display text-3xl text-gold transition-transform duration-500 group-hover:-translate-y-1">
+                                        {String(index + 1).padStart(2, "0")}
+                                    </span>
+                                    <span>
+                                        <span className="block text-lg font-medium">
+                                            {step.title}
+                                        </span>
+                                        <span className="mt-1 block text-sm leading-6 text-ivory/60">
+                                            {step.text}
+                                        </span>
+                                    </span>
+                                </div>
+                            </Reveal>
+                        ))}
+                    </ol>
+
+                    <Reveal delay={0.3} className="mt-10">
+                        <MagneticLink href="#featured" variant="gold">
+                            اختاري هديتك
+                            <ArrowLeft size={18} strokeWidth={1.5} />
+                        </MagneticLink>
+                    </Reveal>
+                </div>
+            </div>
+        </section>
+    );
+}
