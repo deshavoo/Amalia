@@ -12,7 +12,7 @@ import {
 import Emblem from "@/components/brand/Emblem";
 
 const TEXT =
-    "نؤمن أن الذهب ليس مجرد زينة، بل ذكرى تُحفظ، وفرحة تُهدى، وأناقة ترافقكِ في كل لمسة — من أولى خطوات الصغار إلى أجمل مناسبات الكبار.";
+    "نؤمن أن الذهب ليس مجرد زينة، بل ذكرى تُحفظ، وفرحة تُهدى، وأناقة ترافقكِ في كل لمسة — من أول قرط لمولودتك إلى أجمل مناسباتها وهي تكبر.";
 
 const HIGHLIGHTS = new Set(["ذكرى", "فرحة", "أناقة", "لمسة"]);
 
@@ -56,7 +56,7 @@ export default function Manifesto() {
 
     return (
         <section
-            aria-label="فلسفة أماليا"
+            aria-label="فلسفة بيبي أماليا"
             className="relative overflow-hidden bg-ivory py-28 sm:py-40"
         >
             <Emblem

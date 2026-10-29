@@ -13,7 +13,7 @@ import {
 } from "motion/react";
 
 import Emblem from "@/components/brand/Emblem";
-import { storyChapters } from "@/data/catalog";
+import { storyChapters } from "@/data/editorial";
 import { cn } from "@/lib/cn";
 
 type Chapter = (typeof storyChapters)[number];
@@ -183,7 +183,7 @@ export default function StickyStory() {
             }
         >
             <h2 id="story-title" className="sr-only">
-                قصة أماليا للمجوهرات
+                قصة بيبي أماليا
             </h2>
 
             {shouldReduceMotion ? (

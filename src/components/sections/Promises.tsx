@@ -1,33 +1,33 @@
-import { BadgeCheck, Gift, RefreshCcw, ShieldCheck } from "lucide-react";
+import { BadgeCheck, Gem, ShieldCheck, Truck } from "lucide-react";
 
 import Reveal from "@/components/ui/Reveal";
 
 const promises = [
     {
-        icon: BadgeCheck,
-        title: "بطاقة ضمان",
-        text: "ترافق كل قطعة لراحة بالك.",
+        icon: Gem,
+        title: "ذهب عيار 18",
+        text: "آمن على بشرة الأطفال الحساسة.",
     },
     {
-        icon: Gift,
-        title: "تغليف هدايا فاخر",
-        text: "علبة أماليا وشريطها المميز.",
-    },
-    {
-        icon: RefreshCcw,
-        title: "استبدال سهل",
-        text: "خطوات واضحة وخدمة سريعة.",
+        icon: Truck,
+        title: "شحن لكل المملكة",
+        text: "خلال 3 إلى 5 أيام عمل مع رقم تتبع.",
     },
     {
         icon: ShieldCheck,
         title: "دفع آمن",
-        text: "طرق دفع موثوقة ومحمية.",
+        text: "مدى، Apple Pay، STC Pay والبطاقات.",
+    },
+    {
+        icon: BadgeCheck,
+        title: "متجر موثّق",
+        text: "موثّق في منصة الأعمال السعودية.",
     },
 ];
 
 export default function Promises() {
     return (
-        <section aria-label="وعود أماليا" className="bg-ivory py-16 sm:py-20">
+        <section aria-label="وعود بيبي أماليا" className="bg-ivory py-16 sm:py-20">
             <div className="mx-auto max-w-[1600px] sm:px-8 lg:px-12">
                 <ul className="grid grid-cols-2 gap-px overflow-hidden border border-forest/10 bg-forest/10 lg:grid-cols-4">
                     {promises.map(({ icon: Icon, title, text }, index) => (

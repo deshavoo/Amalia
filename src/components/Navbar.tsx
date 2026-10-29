@@ -12,32 +12,35 @@ import {
 import {
     ArrowLeft,
     ChevronDown,
-    Heart,
     Menu,
+    MessageCircle,
     Search,
     ShoppingBag,
     UserRound,
     X,
 } from "lucide-react";
 
+import BabyWordmark from "@/components/brand/BabyWordmark";
+import { siteConfig, whatsappLink } from "@/lib/site";
+
 const mainLinks = [
     { label: "الرئيسية", href: "/" },
-    { label: "المجوهرات", href: "/#collections" },
-    { label: "ذهب الأطفال", href: "/#kids" },
-    { label: "الهدايا", href: "/#gifts" },
-    { label: "قصتنا", href: "/#about" },
+    { label: "المتجر", href: "/shop" },
+    { label: "أقراط المواليد", href: "/shop/newborn" },
+    { label: "قصتنا", href: "/about" },
+    { label: "تواصلي معنا", href: "/contact" },
 ];
 
 const categoryLinks = [
-    { label: "جميع المجوهرات", href: "/#collections" },
-    { label: "خواتم", href: "/#rings" },
-    { label: "أساور", href: "/#bracelets" },
-    { label: "سلاسل", href: "/#necklaces" },
-    { label: "أقراط", href: "/#earrings" },
-    { label: "مجموعة الأطفال", href: "/#kids" },
+    { label: "جميع المجوهرات", href: "/shop" },
+    { label: "أقراط", href: "/shop/earrings" },
+    { label: "قلائد", href: "/shop/necklaces" },
+    { label: "أساور", href: "/shop/bracelets" },
+    { label: "أقراط المواليد", href: "/shop/newborn" },
     { label: "الهدايا", href: "/#gifts" },
 ];
 
+// Cart, account and checkout stay on the Salla storefront.
 const iconLinks = [
     {
         label: "البحث",
@@ -45,18 +48,18 @@ const iconLinks = [
         icon: Search,
     },
     {
+        label: "واتساب",
+        href: whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا"),
+        icon: MessageCircle,
+    },
+    {
         label: "حسابي",
-        href: "/account",
+        href: `${siteConfig.storeUrl}/profile`,
         icon: UserRound,
     },
     {
-        label: "المفضلة",
-        href: "/wishlist",
-        icon: Heart,
-    },
-    {
         label: "حقيبة التسوق",
-        href: "/cart",
+        href: `${siteConfig.storeUrl}/cart`,
         icon: ShoppingBag,
     },
 ];
@@ -121,9 +124,9 @@ export default function Navbar() {
                 <div className="amalia-announcement">
                     <div className="mx-auto flex min-h-9 max-w-[1600px] items-center justify-center px-4">
                         <p className="text-center text-[10px] font-medium tracking-[0.12em] sm:text-xs">
-                            أماليا للمجوهرات
+                            شحن لجميع مناطق المملكة خلال 3–5 أيام
                             <span className="mx-2 text-[#c6a575]">✦</span>
-                            أناقة تدوم عبر الأجيال
+                            ذهب عيار 18 آمن على بشرة طفلتك
                         </p>
                     </div>
                 </div>
@@ -173,12 +176,10 @@ export default function Navbar() {
                         {/* Brand */}
                         <Link
                             href="/"
-                            aria-label="Amalia Jewellery - الصفحة الرئيسية"
+                            aria-label="Baby Amalia - الصفحة الرئيسية"
                             className="amalia-brand group flex flex-col items-center justify-center"
                         >
-                            <span className="amalia-brand-name">
-                                Amalia
-                            </span>
+                            <BabyWordmark className="amalia-brand-name w-36 sm:w-44 lg:w-52" />
 
                             <span className="amalia-brand-subtitle">
                                 J E W E L L E R Y
@@ -193,7 +194,7 @@ export default function Navbar() {
                                     href={href}
                                     aria-label={label}
                                     className={`amalia-icon-button ${href === "/search" ? "hidden lg:inline-flex" : ""
-                                        } ${href === "/wishlist" ? "hidden sm:inline-flex" : ""
+                                        } ${label === "واتساب" || label === "حسابي" ? "hidden sm:inline-flex" : ""
                                         }`}
                                 >
                                     <Icon size={20} strokeWidth={1.5} />
@@ -289,7 +290,7 @@ export default function Navbar() {
                                     onChange={(event) =>
                                         setSearchQuery(event.target.value)
                                     }
-                                    placeholder="ابحثي عن خاتم، سلسلة، أو هدية..."
+                                    placeholder="ابحثي عن أقراط، سلسال، أو هدية مواليد..."
                                     aria-label="اكتبي اسم المنتج"
                                     className="min-w-0 flex-1 bg-transparent py-2 text-sm text-[#11312c] outline-none placeholder:text-[#11312c]/50 sm:text-base"
                                 />
@@ -350,9 +351,7 @@ export default function Navbar() {
                                     onClick={closeMobileMenu}
                                     className="flex flex-col items-center"
                                 >
-                                    <span className="amalia-brand-name text-3xl">
-                                        Amalia
-                                    </span>
+                                    <BabyWordmark className="amalia-brand-name w-36" />
 
                                     <span className="amalia-brand-subtitle">
                                         J E W E L L E R Y
@@ -465,17 +464,17 @@ export default function Navbar() {
                                     {[
                                         {
                                             label: "حسابي",
-                                            href: "/account",
+                                            href: `${siteConfig.storeUrl}/profile`,
                                             icon: UserRound,
                                         },
                                         {
-                                            label: "المفضلة",
-                                            href: "/wishlist",
-                                            icon: Heart,
+                                            label: "واتساب",
+                                            href: whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا"),
+                                            icon: MessageCircle,
                                         },
                                         {
                                             label: "حقيبة التسوق",
-                                            href: "/cart",
+                                            href: `${siteConfig.storeUrl}/cart`,
                                             icon: ShoppingBag,
                                         },
                                     ].map(({ label, href, icon: Icon }) => (

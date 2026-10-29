@@ -1,5 +1,16 @@
 import { siteConfig } from "@/lib/site";
 
+export function JsonLdScript({ data }: { data: object }) {
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+                __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+            }}
+        />
+    );
+}
+
 export default function JsonLd() {
     const url = siteConfig.url;
 
@@ -10,18 +21,30 @@ export default function JsonLd() {
                 "@type": "JewelryStore",
                 "@id": `${url}/#store`,
                 name: siteConfig.nameEn,
-                alternateName: [siteConfig.name, "Amalia Baby", "أماليا بيبي"],
+                alternateName: [siteConfig.name, "Baby Amalia Jewelry"],
                 slogan: siteConfig.tagline,
                 description: siteConfig.description,
                 url,
                 logo: `${url}/images/icon-512.png`,
                 image: `${url}/opengraph-image.jpg`,
+                telephone: siteConfig.contact.phone,
+                currenciesAccepted: siteConfig.currency,
+                paymentAccepted: siteConfig.payments.join(", "),
+                priceRange: "SAR 400 - 2400",
+                address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "الرياض",
+                    addressCountry: "SA",
+                },
+                areaServed: { "@type": "Country", name: "Saudi Arabia" },
+                sameAs: Object.values(siteConfig.social),
             },
             {
                 "@type": "WebSite",
                 "@id": `${url}/#website`,
                 url,
                 name: siteConfig.name,
+                alternateName: siteConfig.nameEn,
                 inLanguage: "ar",
                 publisher: { "@id": `${url}/#store` },
                 potentialAction: {
@@ -33,12 +56,5 @@ export default function JsonLd() {
         ],
     };
 
-    return (
-        <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-                __html: JSON.stringify(data).replace(/</g, "\\u003c"),
-            }}
-        />
-    );
+    return <JsonLdScript data={data} />;
 }

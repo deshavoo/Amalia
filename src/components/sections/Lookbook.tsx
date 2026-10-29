@@ -10,7 +10,7 @@ import {
     useTransform,
 } from "motion/react";
 
-import { lookbook } from "@/data/catalog";
+import { lookbook } from "@/data/editorial";
 import { cn } from "@/lib/cn";
 
 type Look = (typeof lookbook)[number];
@@ -94,14 +94,14 @@ export default function Lookbook() {
                 id="lookbook-title"
                 className="mt-4 text-4xl leading-[1.3] font-medium text-ivory sm:text-5xl"
             >
-                عالم أماليا
+                عالم بيبي أماليا
                 <span lang="en" className="text-gold-gradient block font-display italic">
                     in every touch
                 </span>
             </h2>
             <p className="mt-5 leading-8 text-ivory/65">
-                لقطات من هويتنا الجديدة: الأخضر العميق، والذهبي الهادئ، وتفاصيل
-                تُروى بهدوء.
+                لقطات من عالم أميراتنا الصغيرات: ذهب ناعم، وألوان هادئة، وتفاصيل
+                تُروى بحب.
             </p>
         </div>
     );

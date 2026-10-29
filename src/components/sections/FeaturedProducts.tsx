@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import MagneticLink from "@/components/ui/MagneticLink";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { products } from "@/data/catalog";
+import { featuredProducts } from "@/data/catalog";
 
 import ProductCard from "./ProductCard";
 
@@ -20,11 +20,11 @@ export default function FeaturedProducts() {
                         id="featured-title"
                         eyebrow="الأكثر طلبًا"
                         title="قطع اختارتها قلوبكم"
-                        description="تصاميم تجمع بين الدفء والفخامة، لتبقى معكِ يومًا بعد يوم."
+                        description="قطع ذهب عيار 18 تجمع البراءة والفخامة، اختارتها الأمهات لأميراتهن الصغيرات."
                     />
 
                     <Reveal delay={0.15} className="shrink-0">
-                        <MagneticLink href="#collections" variant="forest">
+                        <MagneticLink href="/shop" variant="forest">
                             عرض كل المجوهرات
                             <ArrowLeft size={18} strokeWidth={1.5} />
                         </MagneticLink>
@@ -32,8 +32,8 @@ export default function FeaturedProducts() {
                 </div>
 
                 <ul className="mt-14 grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 xl:grid-cols-4">
-                    {products.map((product, index) => (
-                        <Reveal key={product.id} as="li" delay={index * 0.1}>
+                    {featuredProducts.map((product, index) => (
+                        <Reveal key={product.id} as="li" delay={(index % 4) * 0.1}>
                             <ProductCard product={product} />
                         </Reveal>
                     ))}

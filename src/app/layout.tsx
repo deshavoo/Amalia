@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Readex_Pro } from "next/font/google";
 
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -22,8 +24,8 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | ${siteConfig.nameEn} — ذهب ومجوهرات للكبار والصغار`,
-    template: `%s | ${siteConfig.name}`,
+    default: `${siteConfig.name} | ${siteConfig.nameEn} — مجوهرات ذهب أطفال فاخرة وآمنة`,
+    template: `%s | ${siteConfig.name} ${siteConfig.nameEn}`,
   },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
@@ -74,7 +76,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       dir="rtl"
       className={`${readex.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <a
+          href="#main-content"
+          className="sr-only z-100 rounded-full bg-forest px-5 py-3 text-sm text-ivory focus:not-sr-only focus:fixed focus:top-4 focus:right-4"
+        >
+          تخطي إلى المحتوى
+        </a>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

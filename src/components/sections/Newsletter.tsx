@@ -35,7 +35,7 @@ export default function Newsletter() {
                 />
 
                 <div className="relative mx-auto max-w-2xl">
-                    <p className="amalia-eyebrow justify-center">نادي أماليا</p>
+                    <p className="amalia-eyebrow justify-center">عائلة بيبي أماليا</p>
                     <h2
                         id="newsletter-title"
                         className="mt-4 text-3xl leading-[1.35] font-medium sm:text-4xl lg:text-5xl"
@@ -43,7 +43,7 @@ export default function Newsletter() {
                         كوني أول من يكتشف الجديد
                     </h2>
                     <p className="mt-4 text-lg leading-8 text-ivory/70">
-                        إصدارات حصرية، وأفكار للهدايا، ودعوات خاصة تصلك أولًا.
+                        التصاميم الجديدة، وأفكار هدايا المواليد، والعروض الخاصة تصلك أولًا.
                     </p>
 
                     <AnimatePresence mode="wait" initial={false}>

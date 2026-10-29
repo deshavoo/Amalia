@@ -1,12 +1,12 @@
 import Emblem from "@/components/brand/Emblem";
 
 const items = [
-    "ذهب للكبار والصغار",
+    "ذهب عيار 18 للأطفال",
     "Elegance in every touch",
-    "تغليف هدايا فاخر",
-    "شهادة ضمان مع كل قطعة",
-    "تصاميم مستوحاة من أيقونة أماليا",
-    "Amalia Jewellery",
+    "آمنة على البشرة الحساسة",
+    "شحن لجميع مناطق المملكة",
+    "حرفية أوروبية",
+    "Baby Amalia",
 ];
 
 function MarqueeGroup({ hidden = false }: { hidden?: boolean }) {
@@ -37,7 +37,7 @@ function MarqueeGroup({ hidden = false }: { hidden?: boolean }) {
 export default function Marquee() {
     return (
         <section
-            aria-label="مميزات أماليا"
+            aria-label="مميزات بيبي أماليا"
             className="amalia-marquee relative overflow-hidden border-y border-gold/25 bg-forest py-6 text-ivory"
         >
             <div dir="ltr" className="amalia-marquee-track">

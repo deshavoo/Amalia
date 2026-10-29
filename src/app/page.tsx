@@ -1,6 +1,4 @@
-import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import Navbar from "@/components/Navbar";
 import Collections from "@/components/sections/Collections";
 import FeaturedProducts from "@/components/sections/FeaturedProducts";
 import GiftExperience from "@/components/sections/GiftExperience";
@@ -17,7 +15,6 @@ export default function Home() {
   return (
     <>
       <JsonLd />
-      <Navbar />
 
       <main id="main-content">
         <Hero />
@@ -32,8 +29,6 @@ export default function Home() {
         <Promises />
         <Newsletter />
       </main>
-
-      <Footer />
     </>
   );
 }

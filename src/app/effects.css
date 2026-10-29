@@ -718,6 +718,90 @@
 }
 
 /* =========================================
+   Baby Amalia wordmark (artwork used as a mask)
+========================================= */
+
+.amalia-baby-wordmark {
+  display: block;
+  aspect-ratio: 1600 / 276;
+  background-color: currentColor;
+  -webkit-mask: url("/brand/baby-amalia-wordmark.png") center / contain no-repeat;
+  mask: url("/brand/baby-amalia-wordmark.png") center / contain no-repeat;
+}
+
+.amalia-emblem {
+  display: block;
+  flex-shrink: 0;
+  background-color: currentColor;
+  -webkit-mask: url("/brand/emblem.svg") center / contain no-repeat;
+  mask: url("/brand/emblem.svg") center / contain no-repeat;
+}
+
+.amalia-emblem--gold {
+  background: linear-gradient(to top right, #a7834f 0%, #c6a575 55%, #ecd8a8 100%);
+}
+
+/* Single-photo products: zoom instead of cross-fading to a second image. */
+.amalia-product:hover .amalia-product-img--solo {
+  opacity: 1;
+  scale: 1.1;
+}
+
+/* =========================================
+   Product detail zoom
+========================================= */
+
+.amalia-zoom img {
+  transform-origin: var(--zx, 50%) var(--zy, 50%);
+  transition: scale 700ms var(--ease-luxe);
+}
+
+.amalia-zoom:hover img {
+  scale: 1.9;
+}
+
+/* =========================================
+   Long-form pages (policies, about)
+========================================= */
+
+.amalia-prose h2 {
+  margin-top: 3rem;
+  color: var(--color-forest);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.amalia-prose h2::before {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline-end: 0.85rem;
+  rotate: 45deg;
+  vertical-align: 0.2em;
+  background: var(--color-gold);
+  content: "";
+}
+
+.amalia-prose p,
+.amalia-prose li {
+  margin-top: 1rem;
+  color: rgb(17 49 44 / 75%);
+  font-size: 1.0625rem;
+  line-height: 2;
+}
+
+.amalia-prose ul {
+  margin-top: 0.5rem;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.amalia-prose li::marker {
+  color: var(--color-gold);
+}
+
+/* =========================================
    Reduced motion
 ========================================= */
 
@@ -732,5 +816,9 @@
 
   .amalia-product {
     transform: none;
+  }
+
+  .amalia-zoom:hover img {
+    scale: 1;
   }
 }

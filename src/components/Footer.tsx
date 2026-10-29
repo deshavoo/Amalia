@@ -1,38 +1,45 @@
 import Link from "next/link";
+import { MessageCircle, Phone } from "lucide-react";
 
+import BabyWordmark from "@/components/brand/BabyWordmark";
 import Emblem from "@/components/brand/Emblem";
-import Wordmark from "@/components/brand/Wordmark";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, whatsappLink } from "@/lib/site";
 
 const footerColumns = [
     {
         title: "تسوقي",
         links: [
-            { label: "جميع المجوهرات", href: "/#collections" },
-            { label: "خواتم", href: "/#rings" },
-            { label: "سلاسل", href: "/#necklaces" },
-            { label: "أساور", href: "/#bracelets" },
-            { label: "أقراط", href: "/#earrings" },
+            { label: "جميع المجوهرات", href: "/shop" },
+            { label: "أقراط", href: "/shop/earrings" },
+            { label: "قلائد", href: "/shop/necklaces" },
+            { label: "أساور", href: "/shop/bracelets" },
+            { label: "أقراط المواليد", href: "/shop/newborn" },
         ],
     },
     {
-        title: "أماليا",
+        title: "بيبي أماليا",
         links: [
-            { label: "قصتنا", href: "/#about" },
-            { label: "مجموعة الأطفال", href: "/#kids" },
+            { label: "من نحن", href: "/about" },
+            { label: "العناية بالمجوهرات", href: "/care" },
             { label: "فن الإهداء", href: "/#gifts" },
-            { label: "الأكثر طلبًا", href: "/#featured" },
+            { label: "تواصلي معنا", href: "/contact" },
         ],
     },
     {
         title: "خدمة العملاء",
         links: [
             { label: "الشحن والتوصيل", href: "/shipping" },
-            { label: "الاستبدال والاسترجاع", href: "/returns" },
-            { label: "العناية بالمجوهرات", href: "/care" },
-            { label: "تواصلي معنا", href: "/contact" },
+            { label: "سياسة الاستبدال", href: "/returns" },
+            { label: "الشروط والأحكام", href: "/terms" },
+            { label: "سياسة الخصوصية", href: "/privacy" },
         ],
     },
+];
+
+const socialLinks = [
+    { label: "Instagram", href: siteConfig.social.instagram },
+    { label: "TikTok", href: siteConfig.social.tiktok },
+    { label: "Snapchat", href: siteConfig.social.snapchat },
 ];
 
 export default function Footer() {
@@ -48,8 +55,8 @@ export default function Footer() {
                             aria-label={`${siteConfig.nameEn} - الصفحة الرئيسية`}
                             className="group inline-flex flex-col items-start gap-5"
                         >
-                            <Emblem className="size-12 transition-transform duration-1000 ease-(--ease-luxe) group-hover:rotate-180" />
-                            <Wordmark className="h-auto w-64 text-ivory" />
+                            <Emblem className="size-12 transition-transform duration-1000 ease-luxe group-hover:rotate-180" />
+                            <BabyWordmark className="w-64 text-ivory" />
                         </Link>
                         <p
                             lang="en"
@@ -58,9 +65,46 @@ export default function Footer() {
                             {siteConfig.tagline}
                         </p>
                         <p className="mt-6 max-w-sm leading-8 text-ivory/60">
-                            ذهب ومجوهرات للكبار والصغار، بأناقة تجمع بين الفخامة
-                            والدفء.
+                            مجوهرات ذهب أنيقة وآمنة للأطفال، مصممة بعناية لتناسب
+                            بشرتهم الحساسة.
                         </p>
+
+                        <ul className="mt-8 space-y-3 text-sm">
+                            <li>
+                                <a
+                                    href={whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا")}
+                                    className="amalia-footer-link inline-flex items-center gap-3 text-ivory/75"
+                                >
+                                    <MessageCircle size={17} strokeWidth={1.5} className="text-gold" />
+                                    واتساب
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href={`tel:${siteConfig.contact.phone}`}
+                                    className="amalia-footer-link inline-flex items-center gap-3 text-ivory/75"
+                                >
+                                    <Phone size={17} strokeWidth={1.5} className="text-gold" />
+                                    <span dir="ltr">{siteConfig.contact.phone}</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul className="mt-6 flex flex-wrap gap-3" aria-label="حساباتنا على التواصل الاجتماعي">
+                            {socialLinks.map((social) => (
+                                <li key={social.label}>
+                                    <a
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        lang="en"
+                                        className="inline-flex h-10 items-center rounded-full border border-ivory/15 px-4 font-display text-base text-ivory/75 italic transition-colors hover:border-gold hover:text-gold-light"
+                                    >
+                                        {social.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
 
                     <nav
@@ -92,23 +136,22 @@ export default function Footer() {
                 {/* Oversized wordmark */}
                 <div
                     aria-hidden="true"
-                    className="amalia-footer-giant mt-20 text-ivory/[0.06]"
+                    className="amalia-footer-giant mt-20 text-ivory/6"
                 >
-                    <Wordmark className="h-auto w-full" />
+                    <BabyWordmark className="w-full" />
                 </div>
 
                 <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ivory/10 pt-8 text-xs text-ivory/50 sm:flex-row">
                     <p>
-                        © {year} {siteConfig.name}. جميع الحقوق محفوظة.
+                        © {year} {siteConfig.name} | {siteConfig.nameEn}. جميع الحقوق محفوظة.
                     </p>
-                    <div className="flex gap-6">
-                        <Link href="/privacy" className="amalia-footer-link">
-                            سياسة الخصوصية
-                        </Link>
-                        <Link href="/terms" className="amalia-footer-link">
-                            الشروط والأحكام
-                        </Link>
-                    </div>
+                    <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                        <span>موثّق في منصة الأعمال</span>
+                        <span aria-hidden="true" className="text-gold">✦</span>
+                        <span lang="en" dir="ltr">
+                            {siteConfig.payments.join(" · ")}
+                        </span>
+                    </p>
                 </div>
             </div>
         </footer>

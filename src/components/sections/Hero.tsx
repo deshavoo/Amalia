@@ -11,7 +11,7 @@ import {
 import { ArrowLeft } from "lucide-react";
 
 import Emblem from "@/components/brand/Emblem";
-import Wordmark from "@/components/brand/Wordmark";
+import BabyWordmark from "@/components/brand/BabyWordmark";
 import MagneticLink from "@/components/ui/MagneticLink";
 import { siteConfig } from "@/lib/site";
 
@@ -150,12 +150,12 @@ export default function Hero() {
 
                 <h1 id="hero-title" className="mt-8 w-full sm:mt-10">
                     <span className="sr-only">
-                        {siteConfig.name} — {siteConfig.nameEn}: ذهب
-                        ومجوهرات للكبار والصغار
+                        {siteConfig.name} — {siteConfig.nameEn}: مجوهرات ذهب
+                        أطفال فاخرة وآمنة
                     </span>
 
-                    <span className="amalia-wordmark-reveal mx-auto block w-[min(88vw,46rem)] text-ivory">
-                        <Wordmark className="h-auto w-full drop-shadow-[0_6px_24px_rgb(0_0_0/35%)]" />
+                    <span className="amalia-wordmark-reveal mx-auto block w-[min(88vw,46rem)] text-ivory drop-shadow-[0_6px_24px_rgb(0_0_0/35%)]">
+                        <BabyWordmark className="w-full" />
                     </span>
                 </h1>
 
@@ -172,15 +172,15 @@ export default function Hero() {
                     {...enter(1.3)}
                     className="mt-6 max-w-xl text-base leading-8 text-pretty text-ivory/75 sm:text-lg"
                 >
-                    ذهب ومجوهرات تُصاغ بحب للكبار والصغار — من أولى الهدايا
-                    إلى أجمل المناسبات، بأناقة هادئة تدوم.
+                    مجوهرات ذهب عيار 18 مصممة لبشرة الأطفال الحساسة — من أقراط
+                    المواليد إلى أولى السلاسل والأساور، بحرفية أوروبية تدوم.
                 </motion.p>
 
                 <motion.div
                     {...enter(1.5)}
                     className="mt-10 flex flex-wrap items-center justify-center gap-4"
                 >
-                    <MagneticLink href="#collections" variant="gold">
+                    <MagneticLink href="/shop" variant="gold">
                         تسوقي المجموعة
                         <ArrowLeft size={18} strokeWidth={1.5} />
                     </MagneticLink>

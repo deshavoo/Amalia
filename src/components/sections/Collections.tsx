@@ -1,6 +1,6 @@
 import SectionHeading from "@/components/ui/SectionHeading";
 import Reveal from "@/components/ui/Reveal";
-import { collections } from "@/data/catalog";
+import { collections } from "@/data/editorial";
 import { cn } from "@/lib/cn";
 
 import CollectionCard from "./CollectionCard";
@@ -41,8 +41,8 @@ export default function Collections() {
                 <SectionHeading
                     id="collections-title"
                     eyebrow="المجموعات"
-                    title="قطع تُشبهكِ، لكل لحظة ولكل عمر"
-                    description="اختاري من مجموعاتنا المصممة بعناية؛ من بريق الخواتم إلى أولى هدايا الصغار."
+                    title="مجوهرات صغيرة لأحلام كبيرة"
+                    description="اختاري من مجموعاتنا المصممة بعناية؛ من أقراط المواليد بلون حجر الميلاد إلى سلاسل وأساور ترافقها وهي تكبر."
                 />
 
                 <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-88 lg:grid-cols-12 lg:gap-5">

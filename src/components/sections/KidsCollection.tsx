@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowLeft, Baby, Gem, Sparkles } from "lucide-react";
+import { ArrowLeft, Baby, CalendarHeart, Gift } from "lucide-react";
 
 import Emblem from "@/components/brand/Emblem";
 import MagneticLink from "@/components/ui/MagneticLink";
@@ -8,41 +8,41 @@ import Reveal from "@/components/ui/Reveal";
 const highlights = [
     {
         icon: Baby,
-        title: "تصاميم آمنة ورقيقة",
-        text: "قطع خفيفة بحواف ناعمة تناسب الصغار.",
+        title: "آمنة على بشرة المواليد",
+        text: "ذهب عيار 18 خفيف بحواف ناعمة.",
     },
     {
-        icon: Gem,
-        title: "أولى الهدايا الذهبية",
-        text: "للسبوع، وأعياد الميلاد، وكل بداية جميلة.",
+        icon: CalendarHeart,
+        title: "حجر شهر الميلاد",
+        text: "لون لكل شهر من شهور السنة.",
     },
     {
-        icon: Sparkles,
-        title: "روح أماليا بيبي",
-        text: "البهجة التي عرفتِنا بها، ضمن هوية واحدة.",
+        icon: Gift,
+        title: "أجمل هدية للسبوع",
+        text: "أول ذهب في حياتها، وذكرى تبقى.",
     },
 ];
 
 export default function KidsCollection() {
     return (
         <section
-            id="kids"
+            id="newborn"
             aria-labelledby="kids-title"
             className="relative overflow-hidden bg-[#f7f3ee] py-24 sm:py-32"
         >
             <div className="mx-auto grid max-w-[1600px] items-center gap-14 px-4 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:px-12">
                 <Reveal>
-                    <p className="amalia-eyebrow">Amalia Baby</p>
+                    <p className="amalia-eyebrow">Newborn Birthstones</p>
                     <h2
                         id="kids-title"
                         className="mt-4 text-3xl leading-[1.35] font-medium text-balance text-forest sm:text-4xl lg:text-5xl"
                     >
-                        ذهب الأطفال… حيث بدأت الحكاية
+                        أقراط المواليد… أول ذهب في حياتها
                     </h2>
                     <p className="mt-5 max-w-xl text-lg leading-8 text-forest/70">
-                        مجموعة الأطفال تحافظ على إحساسها بالبهجة والرقة، داخل
-                        عالم أماليا للمجوهرات الجديد. قطع صغيرة تحمل حبًا كبيرًا،
-                        وتبقى ذكرى تكبر معهم.
+                        أقراط ناعمة ورقيقة لحديثي الولادة بلون حجر شهر الميلاد،
+                        مصممة لتكون آمنة على بشرة المواليد الحساسة. قطع صغيرة
+                        تحمل حبًا كبيرًا، وتبقى ذكرى تكبر معها.
                     </p>
 
                     <ul className="mt-10 grid gap-4 sm:grid-cols-3">
@@ -65,8 +65,8 @@ export default function KidsCollection() {
                     </ul>
 
                     <div className="mt-10">
-                        <MagneticLink href="#featured" variant="forest">
-                            تسوقي مجموعة الأطفال
+                        <MagneticLink href="/shop/newborn" variant="forest">
+                            تسوقي أقراط المواليد
                             <ArrowLeft size={18} strokeWidth={1.5} />
                         </MagneticLink>
                     </div>
@@ -86,7 +86,7 @@ export default function KidsCollection() {
                         <div className="amalia-arch relative h-full overflow-hidden bg-forest">
                             <Image
                                 src="/images/detail-flowers.webp"
-                                alt="زهور بيضاء ناعمة بجانب علبة مجوهرات أماليا الخضراء"
+                                alt="زهور بيضاء ناعمة بجانب علبة مجوهرات بيبي أماليا الخضراء"
                                 fill
                                 sizes="(min-width: 1024px) 40vw, 90vw"
                                 className="object-cover transition-transform duration-[1.6s] ease-(--ease-luxe) hover:scale-110"

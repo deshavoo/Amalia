@@ -1,25 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Heart, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Heart } from "lucide-react";
 
-import type { Product } from "@/data/catalog";
+import { getCategory, productAlt, type Product } from "@/data/taxonomy";
 import { cn, formatPrice } from "@/lib/cn";
 
 const MAX_TILT = 8;
 
-export default function ProductCard({ product }: { product: Product }) {
+type ProductCardProps = {
+    product: Product;
+    sizes?: string;
+    priority?: boolean;
+};
+
+export default function ProductCard({
+    product,
+    sizes = "(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw",
+    priority = false,
+}: ProductCardProps) {
     const ref = useRef<HTMLElement>(null);
     const [wished, setWished] = useState(false);
-    const [added, setAdded] = useState(false);
-
-    useEffect(() => {
-        if (!added) return;
-        const timer = window.setTimeout(() => setAdded(false), 1800);
-        return () => window.clearTimeout(timer);
-    }, [added]);
+    const href = `/product/${product.slug}`;
+    const category = getCategory(product.category);
 
     function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
         if (event.pointerType !== "mouse" || !ref.current) return;
@@ -44,22 +50,21 @@ export default function ProductCard({ product }: { product: Product }) {
             ref={ref}
             onPointerMove={handlePointerMove}
             onPointerLeave={handlePointerLeave}
-            className="amalia-product group"
+            className="amalia-product group relative"
         >
-            <div className="amalia-product-media relative aspect-4/5 overflow-hidden rounded-[1.25rem] bg-forest-deep">
+            <div className="amalia-product-media relative aspect-square overflow-hidden rounded-[1.25rem] bg-white">
                 <Image
                     src={product.image}
-                    alt={product.alt}
+                    alt={productAlt(product)}
                     fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="amalia-product-img object-cover"
-                />
-                <Image
-                    src={product.hoverImage}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1280px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    className="amalia-product-img-alt object-cover"
+                    sizes={sizes}
+                    preload={priority}
+                    placeholder="blur"
+                    blurDataURL={product.blur}
+                    className={cn(
+                        "amalia-product-img amalia-product-img--solo object-cover",
+                        !product.available && "opacity-60"
+                    )}
                 />
 
                 <div aria-hidden="true" className="amalia-product-sheen" />
@@ -76,9 +81,9 @@ export default function ProductCard({ product }: { product: Product }) {
                     )
                 )}
 
-                {product.badge && (
-                    <span className="absolute top-5 right-5 z-10 rounded-full bg-ivory/90 px-3 py-1 text-[11px] font-medium text-forest backdrop-blur">
-                        {product.badge}
+                {!product.available && (
+                    <span className="absolute top-5 right-5 z-10 rounded-full bg-forest/90 px-3 py-1 text-[11px] font-medium text-ivory backdrop-blur">
+                        نفدت الكمية
                     </span>
                 )}
 
@@ -116,49 +121,37 @@ export default function ProductCard({ product }: { product: Product }) {
                     </AnimatePresence>
                 </button>
 
-                <button
-                    type="button"
-                    onClick={() => setAdded(true)}
+                <Link
+                    href={href}
+                    tabIndex={-1}
+                    aria-hidden="true"
                     className="amalia-quick-add absolute inset-x-4 bottom-4 z-10 flex h-12 items-center justify-center gap-2 rounded-full bg-forest/90 text-sm text-ivory backdrop-blur transition-colors hover:bg-forest"
                 >
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.span
-                            key={added ? "added" : "add"}
-                            initial={{ y: 12, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: -12, opacity: 0 }}
-                            transition={{ duration: 0.25 }}
-                            className="inline-flex items-center gap-2"
-                        >
-                            {added ? (
-                                <>
-                                    <Check size={16} className="text-gold" />
-                                    تمت الإضافة إلى الحقيبة
-                                </>
-                            ) : (
-                                <>
-                                    <ShoppingBag size={16} strokeWidth={1.5} />
-                                    أضيفي إلى الحقيبة
-                                </>
-                            )}
-                        </motion.span>
-                    </AnimatePresence>
-                </button>
+                    {product.available ? "اكتشفي القطعة" : "تفاصيل القطعة"}
+                    <ArrowLeft size={16} strokeWidth={1.5} />
+                </Link>
             </div>
 
             <div className="mt-5 flex items-start justify-between gap-4 px-1">
                 <div>
                     <p className="text-xs tracking-wide text-gold-deep">
-                        {product.category}
+                        {category?.title}
+                        {product.karat && ` · عيار ${product.karat}`}
                     </p>
                     <h3 className="mt-1.5 text-lg font-medium text-forest">
-                        {product.name}
+                        {/* Stretched link: the whole card opens the product */}
+                        <Link
+                            href={href}
+                            className="outline-none after:absolute after:inset-0 after:rounded-[1.25rem] focus-visible:after:ring-2 focus-visible:after:ring-gold"
+                        >
+                            {product.name}
+                        </Link>
                     </h3>
                     <p
                         lang="en"
                         className="mt-0.5 font-display text-base text-forest/50 italic"
                     >
-                        {product.nameEn}
+                        {product.code ? `Ref. ${product.code}` : category?.titleEn}
                     </p>
                 </div>
 

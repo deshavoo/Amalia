@@ -5,9 +5,9 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-const priceFormatter = new Intl.NumberFormat("ar-EG", {
+const priceFormatter = new Intl.NumberFormat("ar-SA-u-nu-latn", {
     style: "currency",
-    currency: "EGP",
+    currency: "SAR",
     maximumFractionDigits: 0,
 });
 

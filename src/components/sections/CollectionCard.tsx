@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 import Emblem from "@/components/brand/Emblem";
-import type { Collection } from "@/data/catalog";
+import type { Collection } from "@/data/editorial";
 import { cn } from "@/lib/cn";
 
 type CollectionCardProps = {

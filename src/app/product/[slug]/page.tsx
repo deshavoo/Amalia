@@ -1,0 +1,263 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { ArrowLeft, CreditCard, Gem, MessageCircle, RefreshCcw, Sparkles, Truck } from "lucide-react";
+
+import { JsonLdScript } from "@/components/JsonLd";
+import ProductGallery from "@/components/shop/ProductGallery";
+import ProductGrid from "@/components/shop/ProductGrid";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import MagneticLink from "@/components/ui/MagneticLink";
+import Reveal from "@/components/ui/Reveal";
+import SectionHeading from "@/components/ui/SectionHeading";
+import {
+    getCategory,
+    getProduct,
+    getRelatedProducts,
+    productAlt,
+    products,
+    type Product,
+} from "@/data/catalog";
+import { formatPrice } from "@/lib/cn";
+import { absoluteUrl, siteConfig, whatsappLink } from "@/lib/site";
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+    return products.map((product) => ({ slug: product.slug }));
+}
+
+const DEFAULT_CARE =
+    "للحفاظ على لمعة القطعة يُفضّل تجنب ملامستها للعطور والمواد الكيميائية. كل قطعة تُصنع بحب وعناية، وقد تظهر اختلافات طفيفة في الوزن من قطعة لأخرى.";
+
+function describe(product: Product) {
+    if (product.story) return product.story;
+
+    const category = getCategory(product.category);
+    return `${product.name} من مجموعة ${category?.title ?? "المجوهرات"} في بيبي أماليا، مصممة بعناية لتناسب بشرة الأطفال الحساسة، بحرفية أوروبية ولمسة أناقة تدوم.`;
+}
+
+function seoTitle(product: Product) {
+    return [product.name, product.karat && `ذهب عيار ${product.karat}`, product.code].filter(Boolean).join(" — ");
+}
+
+async function findProduct(params: PageProps<"/product/[slug]">["params"]) {
+    const { slug } = await params;
+    return getProduct(decodeURIComponent(slug));
+}
+
+export async function generateMetadata({ params }: PageProps<"/product/[slug]">): Promise<Metadata> {
+    const product = await findProduct(params);
+    if (!product) return {};
+
+    const path = `/product/${product.slug}`;
+    const description = `${describe(product).slice(0, 140)} — ${formatPrice(product.price)}`;
+
+    return {
+        title: seoTitle(product),
+        description,
+        alternates: { canonical: path },
+        openGraph: {
+            type: "website",
+            url: path,
+            title: seoTitle(product),
+            description,
+            images: [{ url: product.image, width: product.width, height: product.height, alt: productAlt(product) }],
+        },
+    };
+}
+
+export default async function ProductPage({ params }: PageProps<"/product/[slug]">) {
+    const product = await findProduct(params);
+    if (!product) notFound();
+
+    const category = getCategory(product.category)!;
+    const related = getRelatedProducts(product);
+    const isEarring = product.category === "earrings";
+    const orderMessage = `مرحبا، أرغب بطلب: ${product.name}${product.code ? ` (كود ${product.code})` : ""}\n${absoluteUrl(`/product/${product.slug}`)}`;
+
+    const specs = [
+        { label: "عيار الذهب", value: product.karat ? `${product.karat} قيراط` : undefined },
+        { label: "الوزن التقريبي", value: product.weight ? `${product.weight} جرام` : undefined },
+        { label: "رمز القطعة", value: product.code },
+        { label: "التصنيف", value: category.title },
+    ].filter((spec): spec is { label: string; value: string } => Boolean(spec.value));
+
+    const services = [
+        { icon: Truck, title: "الشحن", text: `لجميع مناطق المملكة خلال ${siteConfig.shipping.days} — استلام من فرع سمسا ${siteConfig.shipping.pickup} ر.س أو توصيل للعنوان ${siteConfig.shipping.delivery} ر.س.` },
+        { icon: CreditCard, title: "الدفع", text: `${siteConfig.payments.join("، ")}.` },
+        {
+            icon: RefreshCcw,
+            title: "الاستبدال",
+            text: isEarring
+                ? "لأسباب صحية لا يمكن إرجاع أو استبدال الأقراط والقطع الملامسة للجلد."
+                : "الاستبدال خلال يوم من الاستلام في حال وجود عيب مصنعي واضح.",
+        },
+    ];
+
+    const productLd = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": `${absoluteUrl(`/product/${product.slug}`)}#product`,
+        name: product.name,
+        description: describe(product),
+        image: absoluteUrl(product.image),
+        sku: product.code ?? product.id,
+        category: category.title,
+        material: product.karat ? `ذهب عيار ${product.karat}` : "ذهب",
+        brand: { "@type": "Brand", name: siteConfig.nameEn },
+        ...(product.weight && {
+            weight: { "@type": "QuantitativeValue", value: product.weight, unitCode: "GRM" },
+        }),
+        offers: {
+            "@type": "Offer",
+            url: absoluteUrl(`/product/${product.slug}`),
+            price: product.price,
+            priceCurrency: siteConfig.currency,
+            availability: product.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            itemCondition: "https://schema.org/NewCondition",
+            seller: { "@id": `${siteConfig.url}/#store` },
+            shippingDetails: {
+                "@type": "OfferShippingDetails",
+                shippingRate: { "@type": "MonetaryAmount", value: siteConfig.shipping.delivery, currency: siteConfig.currency },
+                shippingDestination: { "@type": "DefinedRegion", addressCountry: "SA" },
+                deliveryTime: {
+                    "@type": "ShippingDeliveryTime",
+                    handlingTime: { "@type": "QuantitativeValue", minValue: 0, maxValue: 1, unitCode: "DAY" },
+                    transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 5, unitCode: "DAY" },
+                },
+            },
+            hasMerchantReturnPolicy: {
+                "@type": "MerchantReturnPolicy",
+                applicableCountry: "SA",
+                ...(isEarring
+                    ? { returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted" }
+                    : {
+                          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+                          merchantReturnDays: 1,
+                          returnFees: "https://schema.org/ReturnShippingFees",
+                      }),
+            },
+        },
+    };
+
+    return (
+        <main id="main-content" className="bg-ivory">
+            <JsonLdScript data={productLd} />
+
+            <div className="mx-auto max-w-[1600px] px-4 pt-8 pb-20 sm:px-8 sm:pt-10 lg:px-12">
+                <Breadcrumbs
+                    items={[
+                        { label: "المتجر", href: "/shop" },
+                        { label: category.title, href: `/shop/${category.key}` },
+                        { label: product.name, href: `/product/${product.slug}` },
+                    ]}
+                />
+
+                <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
+                    <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
+                        <ProductGallery product={product} />
+                    </Reveal>
+
+                    <Reveal delay={0.12}>
+                        <p className="amalia-eyebrow">
+                            {category.titleEn}
+                            {product.karat && ` · ${product.karat}K Gold`}
+                        </p>
+                        <h1 className="mt-4 text-3xl leading-[1.35] font-medium text-balance text-forest sm:text-4xl">
+                            {product.name}
+                        </h1>
+                        {product.code && (
+                            <p lang="en" className="mt-1 font-display text-lg text-forest/50 italic">
+                                Ref. {product.code}
+                            </p>
+                        )}
+
+                        <div className="mt-6 flex flex-wrap items-center gap-4">
+                            <p className="text-2xl font-medium text-forest sm:text-3xl">{formatPrice(product.price)}</p>
+                            <span
+                                className={
+                                    product.available
+                                        ? "rounded-full bg-gold/15 px-3 py-1 text-xs text-gold-deep"
+                                        : "rounded-full bg-forest/10 px-3 py-1 text-xs text-forest/70"
+                                }
+                            >
+                                {product.available ? "متوفر" : "نفدت الكمية"}
+                            </span>
+                        </div>
+                        <p className="mt-2 text-xs text-forest/50">قد يختلف الوزن قليلًا من قطعة لأخرى</p>
+
+                        <p className="mt-8 text-base leading-8 text-pretty text-forest/75 sm:text-lg">{describe(product)}</p>
+
+                        <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-forest/10 bg-forest/10">
+                            {specs.map((spec) => (
+                                <div key={spec.label} className="bg-ivory p-4 sm:p-5">
+                                    <dt className="text-xs text-forest/55">{spec.label}</dt>
+                                    <dd className="mt-1 text-base font-medium text-forest" dir="auto">
+                                        {spec.value}
+                                    </dd>
+                                </div>
+                            ))}
+                        </dl>
+
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            <MagneticLink href={product.available ? product.sallaUrl : whatsappLink(orderMessage)} variant="forest">
+                                {product.available ? "اطلبي الآن" : "أعلميني عند التوفر"}
+                                <ArrowLeft size={18} strokeWidth={1.5} />
+                            </MagneticLink>
+                            <a
+                                href={whatsappLink(orderMessage)}
+                                className="inline-flex min-h-13 items-center gap-2 rounded-full border border-forest/20 px-8 text-[0.9375rem] font-medium text-forest transition-colors hover:border-gold hover:text-gold-deep"
+                            >
+                                <MessageCircle size={18} strokeWidth={1.5} />
+                                اطلبي عبر واتساب
+                            </a>
+                        </div>
+
+                        <ul className="mt-10 space-y-4">
+                            {services.map(({ icon: Icon, title, text }) => (
+                                <li key={title} className="flex gap-4 rounded-2xl border border-forest/10 bg-white/50 p-5">
+                                    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-gold/15 text-gold-deep">
+                                        <Icon size={18} strokeWidth={1.5} />
+                                    </span>
+                                    <div>
+                                        <h2 className="text-sm font-medium text-forest">{title}</h2>
+                                        <p className="mt-1 text-sm leading-7 text-forest/65">{text}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="mt-8 rounded-2xl bg-forest p-6 text-ivory">
+                            <h2 className="flex items-center gap-2 text-sm font-medium text-gold">
+                                <Sparkles size={16} strokeWidth={1.5} />
+                                العناية بالقطعة
+                            </h2>
+                            <p className="mt-2 text-sm leading-7 text-ivory/75">{product.care ?? DEFAULT_CARE}</p>
+                        </div>
+                    </Reveal>
+                </div>
+            </div>
+
+            {related.length > 0 && (
+                <section aria-labelledby="related-title" className="border-t border-forest/10 py-20 sm:py-28">
+                    <div className="mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-12">
+                        <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                            <SectionHeading
+                                id="related-title"
+                                eyebrow="قد يعجبكِ أيضًا"
+                                title={`المزيد من ${category.title}`}
+                            />
+                            <MagneticLink href={`/shop/${category.key}`} variant="forest" className="shrink-0">
+                                <Gem size={18} strokeWidth={1.5} />
+                                عرض كل {category.title}
+                            </MagneticLink>
+                        </div>
+                        <div className="mt-14">
+                            <ProductGrid products={related} />
+                        </div>
+                    </div>
+                </section>
+            )}
+        </main>
+    );
+}

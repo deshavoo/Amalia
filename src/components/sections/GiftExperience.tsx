@@ -15,16 +15,16 @@ import Reveal from "@/components/ui/Reveal";
 
 const steps = [
     {
-        title: "علبة أماليا الفاخرة",
-        text: "علبة خضراء بلمسات ذهبية تحفظ القطعة وتليق بالمناسبة.",
+        title: "هدية المواليد",
+        text: "أقراط بلون حجر شهر الميلاد، أجمل هدية للسبوع.",
     },
     {
-        title: "شريط بتوقيعنا",
-        text: "شريط ساتان يحمل أيقونة أماليا لإطلالة هدية لا تُنسى.",
+        title: "لكل مناسبة",
+        text: "أعياد الميلاد، والعيد، وأول يوم في المدرسة.",
     },
     {
-        title: "بطاقة إهداء وضمان",
-        text: "اكتبي رسالتك، ونرفق بطاقة الضمان مع كل قطعة.",
+        title: "لمسة شخصية",
+        text: "اسألينا عن تخصيص القطعة بالاسم أو الحرف المفضل.",
     },
 ];
 
@@ -95,8 +95,8 @@ export default function GiftExperience() {
                             </span>
                         </h2>
                         <p className="mt-5 max-w-lg text-lg leading-8 text-ivory/70">
-                            كل قطعة من أماليا تصل في تجربة إهداء متكاملة، مصممة
-                            لتجعل لحظة الفتح جزءًا من الهدية.
+                            قطعة ذهب صغيرة تحمل حبًا كبيرًا؛ تُهدى في أجمل
+                            لحظاتها وتبقى ذكرى تكبر معها.
                         </p>
                     </Reveal>
 
@@ -121,7 +121,7 @@ export default function GiftExperience() {
                     </ol>
 
                     <Reveal delay={0.3} className="mt-10">
-                        <MagneticLink href="#featured" variant="gold">
+                        <MagneticLink href="/shop" variant="gold">
                             اختاري هديتك
                             <ArrowLeft size={18} strokeWidth={1.5} />
                         </MagneticLink>
