@@ -5,7 +5,10 @@ import Image from "next/image";
 
 import { productAlt, type Product } from "@/data/taxonomy";
 
-/** Main product photo with a cursor-following zoom; pointer math writes CSS variables only. */
+/**
+ * The product shown in a single, permanently lit niche with a cursor-following
+ * zoom; pointer math writes CSS variables only.
+ */
 export default function ProductGallery({ product }: { product: Product }) {
     const ref = useRef<HTMLDivElement>(null);
 
@@ -19,27 +22,38 @@ export default function ProductGallery({ product }: { product: Product }) {
     }
 
     return (
-        <div
-            ref={ref}
-            onPointerMove={handlePointerMove}
-            className="amalia-zoom relative aspect-square cursor-zoom-in overflow-hidden rounded-[1.75rem] bg-white shadow-[0_40px_80px_-40px_rgb(17_49_44/45%)]"
-        >
-            <Image
-                src={product.image}
-                alt={productAlt(product)}
-                fill
-                preload
-                placeholder="blur"
-                blurDataURL={product.blur}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
-            />
-
-            {["top-4 right-4", "top-4 left-4 -scale-x-100", "bottom-4 right-4 -scale-y-100", "bottom-4 left-4 -scale-100"].map(
-                (position) => (
-                    <span key={position} aria-hidden="true" className={`amalia-bracket ${position} size-8 opacity-100`} />
-                )
-            )}
+        <div className="amalia-niche pb-10 [content-visibility:visible]" data-lit="true">
+            <div
+                ref={ref}
+                onPointerMove={handlePointerMove}
+                className="amalia-niche-alcove amalia-niche-alcove--raised amalia-zoom aspect-4/5 cursor-zoom-in"
+            >
+                {product.cutout ? (
+                    <div className="amalia-niche-piece">
+                        <div className="amalia-niche-bob relative size-full">
+                            <Image
+                                src={product.cutout}
+                                alt={productAlt(product)}
+                                fill
+                                preload
+                                sizes="(min-width: 1024px) 45vw, 100vw"
+                                className="object-contain"
+                            />
+                        </div>
+                    </div>
+                ) : (
+                    <div className="amalia-niche-card">
+                        <Image
+                            src={product.image}
+                            alt={productAlt(product)}
+                            fill
+                            preload
+                            sizes="(min-width: 1024px) 45vw, 100vw"
+                            className="object-cover"
+                        />
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

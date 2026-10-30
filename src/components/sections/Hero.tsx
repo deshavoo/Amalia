@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import {
     motion,
@@ -57,14 +57,9 @@ export default function Hero() {
         );
     }
 
+    // Load-in runs in CSS (.amalia-enter), so the copy paints with the HTML instead of waiting for hydration.
     const enter = (delay: number, y = 24) =>
-        shouldReduceMotion
-            ? {}
-            : {
-                  initial: { opacity: 0, y, filter: "blur(10px)" },
-                  animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-                  transition: { duration: 1.2, delay, ease: EASE },
-              };
+        ({ "--enter-delay": `${delay}s`, "--reveal-y": `${y}px` }) as CSSProperties;
 
     return (
         <section
@@ -159,26 +154,26 @@ export default function Hero() {
                     </span>
                 </h1>
 
-                <motion.p
-                    {...enter(1.1, 12)}
+                <p
+                    style={enter(0.7, 12)}
                     lang="en"
                     dir="ltr"
-                    className="text-gold-gradient mt-5 font-display text-xl tracking-[0.08em] italic sm:text-2xl"
+                    className="amalia-enter text-gold-gradient mt-5 font-display text-xl tracking-[0.08em] italic sm:text-2xl"
                 >
                     {siteConfig.tagline}
-                </motion.p>
+                </p>
 
-                <motion.p
-                    {...enter(1.3)}
-                    className="mt-6 max-w-xl text-base leading-8 text-pretty text-ivory/75 sm:text-lg"
+                <p
+                    style={enter(0.85)}
+                    className="amalia-enter mt-6 max-w-xl text-base leading-8 text-pretty text-ivory/75 sm:text-lg"
                 >
                     مجوهرات ذهب عيار 18 مصممة لبشرة الأطفال الحساسة — من أقراط
                     المواليد إلى أولى السلاسل والأساور، بحرفية أوروبية تدوم.
-                </motion.p>
+                </p>
 
-                <motion.div
-                    {...enter(1.5)}
-                    className="mt-10 flex flex-wrap items-center justify-center gap-4"
+                <div
+                    style={enter(1)}
+                    className="amalia-enter mt-10 flex flex-wrap items-center justify-center gap-4"
                 >
                     <MagneticLink href="/shop" variant="gold">
                         تسوقي المجموعة
@@ -188,7 +183,7 @@ export default function Hero() {
                     <MagneticLink href="#about" variant="ghost">
                         اكتشفي قصتنا
                     </MagneticLink>
-                </motion.div>
+                </div>
             </motion.div>
 
             {/* Scroll cue */}

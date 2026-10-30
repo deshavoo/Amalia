@@ -1,39 +1,27 @@
-"use client";
+import type { CSSProperties, ReactNode } from "react";
 
-import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { cn } from "@/lib/cn";
 
 type RevealProps = {
     children: ReactNode;
     className?: string;
+    /** Stagger, in the same 0–0.5 scale the old JS version used; shifts the reveal along the scroll. */
     delay?: number;
     y?: number;
     as?: "div" | "li" | "article" | "header";
 };
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
-export default function Reveal({
-    children,
-    className,
-    delay = 0,
-    y = 32,
-    as = "div",
-}: RevealProps) {
-    const shouldReduceMotion = useReducedMotion();
-    const Component = motion[as];
-
+/**
+ * Fades content up as it scrolls into view. Pure CSS (scroll-driven animation, see
+ * `.amalia-reveal`), so it costs no JavaScript, runs on the compositor and never
+ * hides server-rendered content while the page hydrates. Browsers without
+ * scroll-timeline support simply show the content.
+ */
+export default function Reveal({ children, className, delay = 0, y = 32, as: Component = "div" }: RevealProps) {
     return (
         <Component
-            className={className}
-            initial={
-                shouldReduceMotion
-                    ? false
-                    : { opacity: 0, y, filter: "blur(6px)" }
-            }
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-            transition={{ duration: 0.9, delay, ease: EASE }}
+            className={cn("amalia-reveal", className)}
+            style={{ "--reveal-delay": delay, "--reveal-y": `${y}px` } as CSSProperties}
         >
             {children}
         </Component>

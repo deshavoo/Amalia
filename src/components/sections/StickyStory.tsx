@@ -94,17 +94,9 @@ function StoryText({
         0,
         isLast ? 0 : -60,
     ]);
-    const blur = useTransform(progress, range, [
-        isFirst ? 0 : 8,
-        0,
-        0,
-        isLast ? 0 : 8,
-    ]);
-    const filter = useMotionTemplate`blur(${blur}px)`;
-
     return (
         <motion.article
-            style={{ opacity, y, filter }}
+            style={{ opacity, y }}
             className="absolute inset-x-0 top-1/2 -translate-y-1/2"
         >
             <p className="amalia-eyebrow">{chapter.eyebrow}</p>
@@ -206,7 +198,7 @@ export default function StickyStory() {
                                 <span className="font-display text-5xl text-gold tabular-nums">
                                     {String(active + 1).padStart(2, "0")}
                                 </span>
-                                <span className="font-display text-lg text-ivory/40">
+                                <span className="font-display text-lg text-ivory/60">
                                     / {String(COUNT).padStart(2, "0")}
                                 </span>
                             </div>

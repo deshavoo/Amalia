@@ -17,6 +17,8 @@ export type Product = {
     width: number;
     height: number;
     blur: string;
+    /** Background-free photo (transparent WebP) used inside the boutique niches. */
+    cutout?: string;
     code?: string;
     karat?: number;
     weight?: number;

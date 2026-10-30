@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 
 import BabyWordmark from "@/components/brand/BabyWordmark";
-import { siteConfig, whatsappLink } from "@/lib/site";
+import { contactWhatsappUrl, siteConfig } from "@/lib/site";
 
 const mainLinks = [
     { label: "الرئيسية", href: "/" },
@@ -49,7 +49,7 @@ const iconLinks = [
     },
     {
         label: "واتساب",
-        href: whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا"),
+        href: contactWhatsappUrl,
         icon: MessageCircle,
     },
     {
@@ -125,14 +125,14 @@ export default function Navbar() {
                     <div className="mx-auto flex min-h-9 max-w-[1600px] items-center justify-center px-4">
                         <p className="text-center text-[10px] font-medium tracking-[0.12em] sm:text-xs">
                             شحن لجميع مناطق المملكة خلال 3–5 أيام
-                            <span className="mx-2 text-[#c6a575]">✦</span>
+                            <span className="mx-2 text-gold">✦</span>
                             ذهب عيار 18 آمن على بشرة طفلتك
                         </p>
                     </div>
                 </div>
 
                 {/* Main navigation */}
-                <div className="border-b border-[#11312c]/10 bg-[#f2efeb]/95 backdrop-blur-xl">
+                <div className="border-b border-forest/10 bg-ivory">
                     <div className="mx-auto grid h-19 max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-4 sm:h-22 sm:px-8 lg:px-12">
                         {/* Mobile menu and search */}
                         <div className="flex items-center justify-start gap-1 sm:gap-2 lg:hidden">
@@ -176,12 +176,12 @@ export default function Navbar() {
                         {/* Brand */}
                         <Link
                             href="/"
-                            aria-label="Baby Amalia - الصفحة الرئيسية"
                             className="amalia-brand group flex flex-col items-center justify-center"
                         >
+                            <span className="sr-only">Baby Amalia Jewellery — الصفحة الرئيسية</span>
                             <BabyWordmark className="amalia-brand-name w-36 sm:w-44 lg:w-52" />
 
-                            <span className="amalia-brand-subtitle">
+                            <span aria-hidden="true" className="amalia-brand-subtitle">
                                 J E W E L L E R Y
                             </span>
                         </Link>
@@ -205,7 +205,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Category navigation */}
-                <div className="hidden border-b border-[#11312c]/10 bg-[#f2efeb] lg:block">
+                <div className="hidden border-b border-forest/10 bg-ivory lg:block">
                     <nav
                         aria-label="تصنيفات المجوهرات"
                         className="mx-auto flex h-12 max-w-[1600px] items-center justify-center gap-8 px-8 xl:gap-12"
@@ -233,7 +233,7 @@ export default function Navbar() {
                         transition={{
                             duration: shouldReduceMotion ? 0 : 0.2,
                         }}
-                        className="fixed inset-0 z-70 flex items-start justify-center bg-[#11312c]/60 px-4 pt-[12vh] backdrop-blur-sm"
+                        className="fixed inset-0 z-70 flex items-start justify-center bg-forest/60 px-4 pt-[12vh] backdrop-blur-sm"
                         onMouseDown={(event) => {
                             if (event.target === event.currentTarget) {
                                 setSearchOpen(false);
@@ -254,12 +254,12 @@ export default function Navbar() {
                             role="dialog"
                             aria-modal="true"
                             aria-labelledby="amalia-search-title"
-                            className="w-full max-w-2xl bg-[#f2efeb] p-5 shadow-2xl sm:p-9"
+                            className="w-full max-w-2xl bg-ivory p-5 shadow-2xl sm:p-9"
                         >
                             <div className="mb-8 flex items-center justify-between">
                                 <h2
                                     id="amalia-search-title"
-                                    className="text-xl font-medium text-[#11312c] sm:text-2xl"
+                                    className="text-xl font-medium text-forest sm:text-2xl"
                                 >
                                     ابحثي عن قطعتك المفضلة
                                 </h2>
@@ -276,11 +276,11 @@ export default function Navbar() {
 
                             <form
                                 onSubmit={handleSearchSubmit}
-                                className="flex items-center gap-3 border-b border-[#11312c]/30 pb-3"
+                                className="flex items-center gap-3 border-b border-forest/30 pb-3"
                             >
                                 <Search
                                     size={21}
-                                    className="shrink-0 text-[#c6a575]"
+                                    className="shrink-0 text-gold"
                                 />
 
                                 <input
@@ -292,13 +292,13 @@ export default function Navbar() {
                                     }
                                     placeholder="ابحثي عن أقراط، سلسال، أو هدية مواليد..."
                                     aria-label="اكتبي اسم المنتج"
-                                    className="min-w-0 flex-1 bg-transparent py-2 text-sm text-[#11312c] outline-none placeholder:text-[#11312c]/50 sm:text-base"
+                                    className="min-w-0 flex-1 bg-transparent py-2 text-sm text-forest outline-none placeholder:text-forest/50 sm:text-base"
                                 />
 
                                 <button
                                     type="submit"
                                     disabled={!searchQuery.trim()}
-                                    className="flex items-center gap-2 text-sm font-medium text-[#11312c] transition-colors hover:text-[#a7834f] disabled:cursor-not-allowed disabled:opacity-40"
+                                    className="flex items-center gap-2 text-sm font-medium text-forest transition-colors hover:text-gold-deep disabled:cursor-not-allowed disabled:opacity-40"
                                 >
                                     بحث
                                     <ArrowLeft size={17} />
@@ -323,7 +323,7 @@ export default function Navbar() {
                                 duration: shouldReduceMotion ? 0 : 0.2,
                             }}
                             onClick={closeMobileMenu}
-                            className="fixed inset-0 z-60 cursor-default bg-[#11312c]/55 backdrop-blur-sm"
+                            className="fixed inset-0 z-60 cursor-default bg-forest/55 backdrop-blur-sm"
                         />
 
                         <motion.aside
@@ -342,18 +342,19 @@ export default function Navbar() {
                             role="dialog"
                             aria-modal="true"
                             aria-label="قائمة التنقل"
-                            className="fixed inset-y-0 right-0 z-65 flex w-[min(88vw,380px)] flex-col overflow-y-auto bg-[#f2efeb] shadow-2xl"
+                            className="fixed inset-y-0 right-0 z-65 flex w-[min(88vw,380px)] flex-col overflow-y-auto bg-ivory shadow-2xl"
                         >
                             {/* Drawer header */}
-                            <div className="flex min-h-22.5 items-center justify-between border-b border-[#11312c]/10 px-5">
+                            <div className="flex min-h-22.5 items-center justify-between border-b border-forest/10 px-5">
                                 <Link
                                     href="/"
                                     onClick={closeMobileMenu}
                                     className="flex flex-col items-center"
                                 >
+                                    <span className="sr-only">Baby Amalia Jewellery — الصفحة الرئيسية</span>
                                     <BabyWordmark className="amalia-brand-name w-36" />
 
-                                    <span className="amalia-brand-subtitle">
+                                    <span aria-hidden="true" className="amalia-brand-subtitle">
                                         J E W E L L E R Y
                                     </span>
                                 </Link>
@@ -390,13 +391,13 @@ export default function Navbar() {
                                         <Link
                                             href={link.href}
                                             onClick={closeMobileMenu}
-                                            className="flex min-h-13.75 items-center justify-between border-b border-[#11312c]/10 text-sm font-medium text-[#11312c] transition-colors hover:text-[#a7834f]"
+                                            className="flex min-h-13.75 items-center justify-between border-b border-forest/10 text-sm font-medium text-forest transition-colors hover:text-gold-deep"
                                         >
                                             {link.label}
 
                                             <ArrowLeft
                                                 size={16}
-                                                className="text-[#c6a575]"
+                                                className="text-gold"
                                             />
                                         </Link>
                                     </motion.div>
@@ -409,13 +410,13 @@ export default function Navbar() {
                                         setCategoriesOpen((previous) => !previous)
                                     }
                                     aria-expanded={categoriesOpen}
-                                    className="flex min-h-13.75 w-full items-center justify-between border-b border-[#11312c]/10 text-sm font-medium text-[#11312c]"
+                                    className="flex min-h-13.75 w-full items-center justify-between border-b border-forest/10 text-sm font-medium text-forest"
                                 >
                                     تصفحي حسب النوع
 
                                     <ChevronDown
                                         size={18}
-                                        className={`text-[#c6a575] transition-transform duration-200 ${categoriesOpen ? "rotate-180" : ""
+                                        className={`text-gold transition-transform duration-200 ${categoriesOpen ? "rotate-180" : ""
                                             }`}
                                     />
                                 </button>
@@ -441,13 +442,13 @@ export default function Navbar() {
                                             }}
                                             className="overflow-hidden"
                                         >
-                                            <div className="border-b border-[#11312c]/10 py-2 pr-4">
+                                            <div className="border-b border-forest/10 py-2 pr-4">
                                                 {categoryLinks.map((category) => (
                                                     <Link
                                                         key={category.href + category.label}
                                                         href={category.href}
                                                         onClick={closeMobileMenu}
-                                                        className="flex min-h-10.75 items-center text-sm text-[#11312c]/75 transition-colors hover:text-[#a7834f]"
+                                                        className="flex min-h-10.75 items-center text-sm text-forest/75 transition-colors hover:text-gold-deep"
                                                     >
                                                         {category.label}
                                                     </Link>
@@ -459,7 +460,7 @@ export default function Navbar() {
                             </nav>
 
                             {/* Drawer actions */}
-                            <div className="mt-auto border-t border-[#11312c]/10 px-5 py-5">
+                            <div className="mt-auto border-t border-forest/10 px-5 py-5">
                                 <div className="grid grid-cols-3 gap-2">
                                     {[
                                         {
@@ -469,7 +470,7 @@ export default function Navbar() {
                                         },
                                         {
                                             label: "واتساب",
-                                            href: whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا"),
+                                            href: contactWhatsappUrl,
                                             icon: MessageCircle,
                                         },
                                         {
@@ -482,7 +483,7 @@ export default function Navbar() {
                                             key={href}
                                             href={href}
                                             onClick={closeMobileMenu}
-                                            className="flex min-h-19 flex-col items-center justify-center gap-2 border border-[#11312c]/10 text-xs text-[#11312c] transition-colors hover:border-[#c6a575] hover:text-[#a7834f]"
+                                            className="flex min-h-19 flex-col items-center justify-center gap-2 border border-forest/10 text-xs text-forest transition-colors hover:border-gold hover:text-gold-deep"
                                         >
                                             <Icon size={20} strokeWidth={1.5} />
                                             {label}

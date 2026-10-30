@@ -10,6 +10,8 @@
   --color-gold: #c6a575;
   --color-gold-light: #e8d3a4;
   --color-gold-deep: #a7834f;
+  /* Small gold text on light backgrounds (4.5:1 on ivory). */
+  --color-gold-ink: #7f6136;
   --color-ivory: #f2efeb;
 
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
@@ -99,7 +101,7 @@ body {
 
   .amalia-brand-subtitle {
     margin-top: 6px;
-    color: var(--amalia-gold);
+    color: var(--color-gold-ink);
     font-family: Arial, sans-serif;
     font-size: 8px;
     font-weight: 500;

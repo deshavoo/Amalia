@@ -22,7 +22,7 @@ export default function Breadcrumbs({ items, tone = "light", className }: Breadc
             <ol
                 className={cn(
                     "flex flex-wrap items-center gap-1.5 text-xs",
-                    tone === "dark" ? "text-ivory/55" : "text-forest/55"
+                    tone === "dark" ? "text-ivory/60" : "text-forest/70"
                 )}
             >
                 {trail.map((crumb, index) => {
@@ -31,7 +31,7 @@ export default function Breadcrumbs({ items, tone = "light", className }: Breadc
                     return (
                         <li key={crumb.href} className="inline-flex items-center gap-1.5">
                             {isLast ? (
-                                <span aria-current="page" className={tone === "dark" ? "text-gold-light" : "text-gold-deep"}>
+                                <span aria-current="page" className={tone === "dark" ? "text-gold-light" : "text-gold-ink"}>
                                     {crumb.label}
                                 </span>
                             ) : (

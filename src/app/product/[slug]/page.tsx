@@ -7,7 +7,6 @@ import ProductGallery from "@/components/shop/ProductGallery";
 import ProductGrid from "@/components/shop/ProductGrid";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import MagneticLink from "@/components/ui/MagneticLink";
-import Reveal from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 import {
     getCategory,
@@ -18,6 +17,7 @@ import {
     type Product,
 } from "@/data/catalog";
 import { formatPrice } from "@/lib/cn";
+import { pageMetadata } from "@/lib/seo";
 import { absoluteUrl, siteConfig, whatsappLink } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -30,14 +30,37 @@ const DEFAULT_CARE =
     "للحفاظ على لمعة القطعة يُفضّل تجنب ملامستها للعطور والمواد الكيميائية. كل قطعة تُصنع بحب وعناية، وقد تظهر اختلافات طفيفة في الوزن من قطعة لأخرى.";
 
 function describe(product: Product) {
-    if (product.story) return product.story;
+    if (product.story && product.story.length >= 90) return product.story;
 
+    // Many imported pieces share a generic name ("اقراط ذهب") or a one-line story,
+    // so the generated text leans on what makes each piece unique.
     const category = getCategory(product.category);
-    return `${product.name} من مجموعة ${category?.title ?? "المجوهرات"} في بيبي أماليا، مصممة بعناية لتناسب بشرة الأطفال الحساسة، بحرفية أوروبية ولمسة أناقة تدوم.`;
+    const details = [
+        product.karat && `ذهب عيار ${product.karat}`,
+        product.weight && `بوزن ${product.weight} جرام`,
+        product.code && `رمز ${product.code}`,
+    ].filter(Boolean);
+    const generated = `${product.name} من مجموعة ${category?.title ?? "المجوهرات"} في بيبي أماليا${details.length ? ` (${details.join("، ")})` : ""}، مصممة بعناية لتناسب بشرة الأطفال الحساسة بحرفية أوروبية.`;
+
+    return product.story ? `${product.story} ${generated}` : generated;
 }
 
+// Names shared by several pieces ("اقراط ذهب") get the reference code so every title is unique.
+const repeatedNames = new Set(
+    products.map((product) => product.name).filter((name, index, names) => names.indexOf(name) !== index)
+);
+
 function seoTitle(product: Product) {
-    return [product.name, product.karat && `ذهب عيار ${product.karat}`, product.code].filter(Boolean).join(" — ");
+    const karat = product.karat ? (product.name.includes("ذهب") ? ` عيار ${product.karat}` : ` ذهب عيار ${product.karat}`) : "";
+    const code = repeatedNames.has(product.name) && product.code ? ` ${product.code}` : "";
+    return `${product.name}${karat}${code}`;
+}
+
+function seoDescription(product: Product) {
+    const price = ` — ${formatPrice(product.price)}`;
+    const text = describe(product);
+    const max = 155 - price.length;
+    return (text.length > max ? `${text.slice(0, text.lastIndexOf(" ", max))}…` : text) + price;
 }
 
 async function findProduct(params: PageProps<"/product/[slug]">["params"]) {
@@ -49,21 +72,12 @@ export async function generateMetadata({ params }: PageProps<"/product/[slug]">)
     const product = await findProduct(params);
     if (!product) return {};
 
-    const path = `/product/${product.slug}`;
-    const description = `${describe(product).slice(0, 140)} — ${formatPrice(product.price)}`;
-
-    return {
+    return pageMetadata({
         title: seoTitle(product),
-        description,
-        alternates: { canonical: path },
-        openGraph: {
-            type: "website",
-            url: path,
-            title: seoTitle(product),
-            description,
-            images: [{ url: product.image, width: product.width, height: product.height, alt: productAlt(product) }],
-        },
-    };
+        description: seoDescription(product),
+        path: `/product/${product.slug}`,
+        image: { url: product.image, width: product.width, height: product.height, alt: productAlt(product) },
+    });
 }
 
 export default async function ProductPage({ params }: PageProps<"/product/[slug]">) {
@@ -100,7 +114,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
         "@id": `${absoluteUrl(`/product/${product.slug}`)}#product`,
         name: product.name,
         description: describe(product),
-        image: absoluteUrl(product.image),
+        image: [product.image, product.cutout].filter(Boolean).map((src) => absoluteUrl(src)),
         sku: product.code ?? product.id,
         category: category.title,
         material: product.karat ? `ذهب عيار ${product.karat}` : "ذهب",
@@ -154,11 +168,12 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                 />
 
                 <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
-                    <Reveal className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
+                    {/* No scroll reveal here: the photo is the LCP and the details are buying info — both show at once. */}
+                    <div className="lg:sticky lg:top-[calc(var(--header-h)+1.5rem)] lg:self-start">
                         <ProductGallery product={product} />
-                    </Reveal>
+                    </div>
 
-                    <Reveal delay={0.12}>
+                    <div>
                         <p className="amalia-eyebrow">
                             {category.titleEn}
                             {product.karat && ` · ${product.karat}K Gold`}
@@ -167,7 +182,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                             {product.name}
                         </h1>
                         {product.code && (
-                            <p lang="en" className="mt-1 font-display text-lg text-forest/50 italic">
+                            <p lang="en" className="mt-1 font-display text-lg text-forest/70 italic">
                                 Ref. {product.code}
                             </p>
                         )}
@@ -177,21 +192,21 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                             <span
                                 className={
                                     product.available
-                                        ? "rounded-full bg-gold/15 px-3 py-1 text-xs text-gold-deep"
+                                        ? "rounded-full bg-gold/15 px-3 py-1 text-xs text-gold-ink"
                                         : "rounded-full bg-forest/10 px-3 py-1 text-xs text-forest/70"
                                 }
                             >
                                 {product.available ? "متوفر" : "نفدت الكمية"}
                             </span>
                         </div>
-                        <p className="mt-2 text-xs text-forest/50">قد يختلف الوزن قليلًا من قطعة لأخرى</p>
+                        <p className="mt-2 text-xs text-forest/70">قد يختلف الوزن قليلًا من قطعة لأخرى</p>
 
                         <p className="mt-8 text-base leading-8 text-pretty text-forest/75 sm:text-lg">{describe(product)}</p>
 
                         <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-forest/10 bg-forest/10">
                             {specs.map((spec) => (
                                 <div key={spec.label} className="bg-ivory p-4 sm:p-5">
-                                    <dt className="text-xs text-forest/55">{spec.label}</dt>
+                                    <dt className="text-xs text-forest/70">{spec.label}</dt>
                                     <dd className="mt-1 text-base font-medium text-forest" dir="auto">
                                         {spec.value}
                                     </dd>
@@ -234,20 +249,21 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                             </h2>
                             <p className="mt-2 text-sm leading-7 text-ivory/75">{product.care ?? DEFAULT_CARE}</p>
                         </div>
-                    </Reveal>
+                    </div>
                 </div>
             </div>
 
             {related.length > 0 && (
-                <section aria-labelledby="related-title" className="border-t border-forest/10 py-20 sm:py-28">
+                <section aria-labelledby="related-title" className="amalia-wall grain relative isolate py-20 text-ivory sm:py-28">
                     <div className="mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-12">
                         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
                             <SectionHeading
                                 id="related-title"
                                 eyebrow="قد يعجبكِ أيضًا"
                                 title={`المزيد من ${category.title}`}
+                                tone="dark"
                             />
-                            <MagneticLink href={`/shop/${category.key}`} variant="forest" className="shrink-0">
+                            <MagneticLink href={`/shop/${category.key}`} variant="gold" className="shrink-0">
                                 <Gem size={18} strokeWidth={1.5} />
                                 عرض كل {category.title}
                             </MagneticLink>

@@ -6,6 +6,7 @@ import MagneticLink from "@/components/ui/MagneticLink";
 import PageHeader from "@/components/ui/PageHeader";
 import Reveal from "@/components/ui/Reveal";
 import { contentPages, getContentPage } from "@/data/pages";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -17,12 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/[page]">): Promis
     const page = getContentPage((await params).page);
     if (!page) return {};
 
-    return {
-        title: page.title,
-        description: page.description,
-        alternates: { canonical: `/${page.slug}` },
-        openGraph: { url: `/${page.slug}`, title: page.title, description: page.description },
-    };
+    return pageMetadata({ title: page.title, description: page.description, path: `/${page.slug}` });
 }
 
 export default async function ContentPage({ params }: PageProps<"/[page]">) {

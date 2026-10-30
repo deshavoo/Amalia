@@ -7,6 +7,7 @@ import { products } from "@/data/catalog";
 
 export const metadata: Metadata = {
     title: "البحث",
+    alternates: { canonical: "/search" },
     robots: { index: false, follow: true },
 };
 
@@ -19,8 +20,11 @@ export default function SearchPage() {
                 breadcrumbs={[{ label: "البحث", href: "/search" }]}
             />
 
-            <section aria-label="نتائج البحث" className="bg-ivory py-14 sm:py-20">
+            <section aria-labelledby="results-title" className="amalia-wall grain relative isolate min-h-[60vh] py-14 text-ivory sm:py-20">
                 <div className="mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-12">
+                    <h2 id="results-title" className="sr-only">
+                        نتائج البحث
+                    </h2>
                     <Suspense>
                         <SearchResults products={products} />
                     </Suspense>

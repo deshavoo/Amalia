@@ -43,7 +43,7 @@ export default function Promises() {
                             <h3 className="mt-5 text-base font-medium text-forest sm:text-lg">
                                 {title}
                             </h3>
-                            <p className="mt-1.5 text-sm text-forest/60">{text}</p>
+                            <p className="mt-1.5 text-sm text-forest/70">{text}</p>
                         </Reveal>
                     ))}
                 </ul>

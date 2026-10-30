@@ -3,14 +3,15 @@ import type { MetadataRoute } from "next";
 import { categories, products } from "@/data/catalog";
 import data from "@/data/products.json";
 import { contentPages } from "@/data/pages";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const lastModified = new Date(data.importedAt);
 
     return [
         {
-            url: absoluteUrl("/"),
+            // Matches the canonical Next.js renders for "/" (no trailing slash).
+            url: siteConfig.url,
             lastModified,
             changeFrequency: "weekly",
             priority: 1,

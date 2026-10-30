@@ -57,7 +57,7 @@ export default function KidsCollection() {
                                 <h3 className="mt-4 text-base font-medium text-forest">
                                     {title}
                                 </h3>
-                                <p className="mt-1.5 text-sm leading-6 text-forest/60">
+                                <p className="mt-1.5 text-sm leading-6 text-forest/70">
                                     {text}
                                 </p>
                             </li>

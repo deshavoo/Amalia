@@ -3,7 +3,7 @@ import { MessageCircle, Phone } from "lucide-react";
 
 import BabyWordmark from "@/components/brand/BabyWordmark";
 import Emblem from "@/components/brand/Emblem";
-import { siteConfig, whatsappLink } from "@/lib/site";
+import { contactWhatsappUrl, siteConfig } from "@/lib/site";
 
 const footerColumns = [
     {
@@ -72,7 +72,7 @@ export default function Footer() {
                         <ul className="mt-8 space-y-3 text-sm">
                             <li>
                                 <a
-                                    href={whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا")}
+                                    href={contactWhatsappUrl}
                                     className="amalia-footer-link inline-flex items-center gap-3 text-ivory/75"
                                 >
                                     <MessageCircle size={17} strokeWidth={1.5} className="text-gold" />
@@ -141,7 +141,7 @@ export default function Footer() {
                     <BabyWordmark className="w-full" />
                 </div>
 
-                <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ivory/10 pt-8 text-xs text-ivory/50 sm:flex-row">
+                <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ivory/10 pt-8 text-xs text-ivory/60 sm:flex-row">
                     <p>
                         © {year} {siteConfig.name} | {siteConfig.nameEn}. جميع الحقوق محفوظة.
                     </p>

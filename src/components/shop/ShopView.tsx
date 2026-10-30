@@ -50,9 +50,12 @@ export default function ShopView({ active, eyebrow, title, description, breadcru
                 </nav>
             </PageHeader>
 
-            <section aria-label={`منتجات ${title}`} className="bg-ivory py-14 sm:py-20">
+            <section aria-labelledby="products-title" className="amalia-wall grain relative isolate py-16 text-ivory sm:py-24">
                 <div className="mx-auto max-w-[1600px] px-4 sm:px-8 lg:px-12">
-                    <p className="mb-8 text-sm text-forest/60">{products.length} قطعة</p>
+                    <h2 id="products-title" className="sr-only">
+                        قطع {title}
+                    </h2>
+                    <p className="mb-12 text-center text-sm text-ivory/60">{products.length} قطعة في البوتيك</p>
                     <ProductGrid products={products} />
                 </div>
             </section>

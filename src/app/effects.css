@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: var(--color-gold-deep);
+  color: var(--color-gold-ink);
   font-size: 0.8125rem;
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -20,7 +20,8 @@
 }
 
 .bg-forest .amalia-eyebrow,
-.bg-forest-deep .amalia-eyebrow {
+.bg-forest-deep .amalia-eyebrow,
+.amalia-wall .amalia-eyebrow {
   color: var(--color-gold);
 }
 
@@ -34,20 +35,11 @@
     #a7834f 100%
   );
   background-size: 250% 100%;
+  background-position: 35% 0;
   background-clip: text;
   color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: amalia-shimmer 7s linear infinite;
-}
-
-@keyframes amalia-shimmer {
-  from {
-    background-position: 100% 0;
-  }
-  to {
-    background-position: -150% 0;
-  }
 }
 
 /* Film grain for dark, satin-like sections */
@@ -58,8 +50,7 @@
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   content: "";
-  mix-blend-mode: overlay;
-  opacity: 0.12;
+  opacity: 0.06;
 }
 
 .amalia-sticky-panel {
@@ -256,13 +247,13 @@
 
 .amalia-wordmark-reveal {
   position: relative;
-  animation: amalia-wipe 1.6s var(--ease-luxe) 0.5s both;
+  animation: amalia-wipe 1.6s var(--ease-luxe) 0.2s both;
 }
 
 .amalia-wordmark-reveal::after {
   position: absolute;
   inset-block: -10%;
-  left: -20%;
+  left: 0;
   width: 18%;
   background: linear-gradient(
     100deg,
@@ -273,30 +264,28 @@
   content: "";
   mix-blend-mode: overlay;
   opacity: 0;
-  animation: amalia-glint 2.4s var(--ease-luxe) 1.4s both;
+  animation: amalia-glint 2.4s var(--ease-luxe) 1.1s both;
 }
 
 @keyframes amalia-wipe {
   from {
     clip-path: inset(0 100% 0 0);
-    filter: blur(6px);
   }
   to {
     clip-path: inset(0 0 0 0);
-    filter: blur(0);
   }
 }
 
 @keyframes amalia-glint {
   0% {
-    left: -20%;
+    translate: -110% 0;
     opacity: 0;
   }
   20% {
     opacity: 1;
   }
   100% {
-    left: 110%;
+    translate: 610% 0;
     opacity: 0;
   }
 }
@@ -355,7 +344,7 @@
 .amalia-marquee-track {
   display: flex;
   width: max-content;
-  animation: amalia-marquee 38s linear infinite;
+  animation: amalia-marquee 70s linear infinite;
 }
 
 .amalia-marquee:hover .amalia-marquee-track {
@@ -365,6 +354,8 @@
 .amalia-marquee-group {
   display: flex;
   flex-shrink: 0;
+  min-width: 100vw;
+  justify-content: space-around;
   align-items: center;
   gap: 2.5rem;
   padding-inline-end: 2.5rem;
@@ -488,137 +479,6 @@
    Product cards
 ========================================= */
 
-.amalia-product {
-  --rx: 0deg;
-  --ry: 0deg;
-  --mx: 50%;
-  --my: 50%;
-
-  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform 700ms var(--ease-luxe);
-}
-
-.amalia-product:hover {
-  transition: transform 120ms linear;
-}
-
-.amalia-product-media {
-  transition: box-shadow 700ms var(--ease-luxe);
-}
-
-.amalia-product:hover .amalia-product-media {
-  box-shadow: 0 40px 70px -30px rgb(17 49 44 / 55%);
-}
-
-.amalia-product-img,
-.amalia-product-img-alt {
-  transition:
-    opacity 900ms var(--ease-luxe),
-    scale 1.4s var(--ease-luxe);
-}
-
-.amalia-product-img-alt {
-  opacity: 0;
-  scale: 1.12;
-}
-
-.amalia-product:hover .amalia-product-img {
-  opacity: 0;
-  scale: 1.08;
-}
-
-.amalia-product:hover .amalia-product-img-alt {
-  opacity: 1;
-  scale: 1;
-}
-
-.amalia-product-sheen {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at var(--mx) var(--my),
-    rgb(255 244 214 / 45%),
-    transparent 45%
-  );
-  mix-blend-mode: soft-light;
-  opacity: 0;
-  transition: opacity 500ms ease;
-}
-
-.amalia-product:hover .amalia-product-sheen {
-  opacity: 1;
-}
-
-.amalia-product-glint {
-  position: absolute;
-  inset: -50%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(
-    115deg,
-    transparent 40%,
-    rgb(243 226 181 / 35%) 50%,
-    transparent 60%
-  );
-  translate: -60% 0;
-}
-
-.amalia-product:hover .amalia-product-glint {
-  translate: 60% 0;
-  transition: translate 1.3s var(--ease-luxe);
-}
-
-.amalia-bracket {
-  position: absolute;
-  z-index: 2;
-  width: 22px;
-  height: 22px;
-  border-top: 1px solid var(--color-gold-light);
-  border-right: 1px solid var(--color-gold-light);
-  pointer-events: none;
-  opacity: 0;
-  transition:
-    opacity 500ms ease,
-    width 700ms var(--ease-luxe),
-    height 700ms var(--ease-luxe);
-}
-
-.amalia-product:hover .amalia-bracket {
-  width: 34px;
-  height: 34px;
-  opacity: 1;
-}
-
-.amalia-quick-add {
-  opacity: 0;
-  translate: 0 calc(100% + 1rem);
-  transition:
-    opacity 400ms ease,
-    translate 600ms var(--ease-luxe),
-    background-color 300ms ease;
-}
-
-.amalia-product:hover .amalia-quick-add,
-.amalia-quick-add:focus-visible {
-  opacity: 1;
-  translate: 0 0;
-}
-
-.amalia-wish:focus-visible,
-.amalia-quick-add:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 3px;
-}
-
-@media (hover: none) {
-  .amalia-quick-add {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
-
 /* =========================================
    Lookbook
 ========================================= */
@@ -725,8 +585,8 @@
   display: block;
   aspect-ratio: 1600 / 276;
   background-color: currentColor;
-  -webkit-mask: url("/brand/baby-amalia-wordmark.png") center / contain no-repeat;
-  mask: url("/brand/baby-amalia-wordmark.png") center / contain no-repeat;
+  -webkit-mask: url("/brand/baby-amalia-wordmark.webp") center / contain no-repeat;
+  mask: url("/brand/baby-amalia-wordmark.webp") center / contain no-repeat;
 }
 
 .amalia-emblem {
@@ -741,10 +601,280 @@
   background: linear-gradient(to top right, #a7834f 0%, #c6a575 55%, #ecd8a8 100%);
 }
 
-/* Single-photo products: zoom instead of cross-fading to a second image. */
-.amalia-product:hover .amalia-product-img--solo {
-  opacity: 1;
-  scale: 1.1;
+/* =========================================
+   Boutique wall & niches
+   A niche is "lit" on hover, keyboard focus, or (touch) when it scrolls
+   into the middle of the screen. --lit drives every light/lift value.
+========================================= */
+
+@property --lit {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.amalia-wall {
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgb(198 165 117 / 9%), transparent 70%),
+    linear-gradient(180deg, #0c2722 0%, var(--color-forest-deep) 100%);
+}
+
+.amalia-niche {
+  --lit: 0;
+
+  position: relative;
+  /* Room for the alcove's offset outline — content-visibility clips paint to this box. */
+  padding: 0.5rem 0.5rem 0;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 32rem;
+  transition: --lit 800ms var(--ease-luxe);
+}
+
+.amalia-niche:hover,
+.amalia-niche:focus-within,
+.amalia-niche[data-lit="true"] {
+  --lit: 1;
+}
+
+.amalia-niche-alcove {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  border-radius: 999px 999px 1.25rem 1.25rem;
+  /* Painted layers, top to bottom: the piece's shadow, the shelf edge, the shelf, the carved wall. */
+  background:
+    radial-gradient(ellipse 23% 2.6% at 50% 82.5%, rgb(0 0 0 / calc(0.6 - var(--lit) * 0.25)), transparent),
+    linear-gradient(rgb(232 211 164 / calc(0.1 + var(--lit) * 0.18)), rgb(232 211 164 / calc(0.1 + var(--lit) * 0.18))) bottom 17% left 0 / 100% 1px no-repeat,
+    linear-gradient(180deg, rgb(255 255 255 / 5%), rgb(0 0 0 / 30%)) bottom / 100% 17% no-repeat,
+    linear-gradient(180deg, #071915 0%, #0e2d27 48%, #13382f 100%);
+  box-shadow:
+    inset 0 46px 50px -34px rgb(0 0 0 / 80%),
+    inset 22px 0 30px -26px rgb(0 0 0 / 65%),
+    inset -22px 0 30px -26px rgb(0 0 0 / 65%);
+  outline: 1px solid rgb(198 165 117 / calc(0.12 + var(--lit) * 0.3));
+  outline-offset: 7px;
+}
+
+/* A single, larger display niche (product page) that sits proud of the wall. */
+.amalia-niche-alcove--raised {
+  box-shadow:
+    inset 0 46px 50px -34px rgb(0 0 0 / 80%),
+    inset 22px 0 30px -26px rgb(0 0 0 / 65%),
+    inset -22px 0 30px -26px rgb(0 0 0 / 65%),
+    0 50px 90px -40px rgb(10 33 29 / 70%);
+}
+
+/* Light cone from the lamp + the pool it leaves on the shelf. */
+.amalia-niche-alcove::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 40% 64% at 50% -6%, rgb(243 226 181 / 50%), rgb(232 211 164 / 10%) 58%, transparent 78%),
+    radial-gradient(ellipse 48% 9% at 50% 86%, rgb(243 226 181 / 26%), transparent 72%);
+  content: "";
+  opacity: calc(0.3 + var(--lit) * 0.7);
+}
+
+/* The lamp. */
+.amalia-niche-alcove::after {
+  position: absolute;
+  top: 7%;
+  left: 50%;
+  width: 24%;
+  height: 3px;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #f3e2b5, transparent);
+  box-shadow: 0 0 calc(8px + var(--lit) * 26px) rgb(243 226 181 / calc(0.35 + var(--lit) * 0.55));
+  content: "";
+  opacity: calc(0.45 + var(--lit) * 0.55);
+}
+
+.amalia-niche-piece {
+  position: absolute;
+  inset: 13% 11% 21%;
+  z-index: 1;
+  translate: 0 calc(var(--lit) * -12px);
+  scale: calc(1 + var(--lit) * 0.06);
+  opacity: calc(0.8 + var(--lit) * 0.2);
+  -webkit-box-reflect: below 4px linear-gradient(transparent 74%, rgb(0 0 0 / 18%));
+}
+
+/* Chains fade into the dark of the niche, as if hung from its ceiling. */
+.amalia-niche-bob {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 22%);
+}
+
+/* Idle bob for showcase niches (few on screen); grids stay still until lit. */
+.amalia-niche--float .amalia-niche-bob {
+  animation: amalia-niche-bob 7s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -1.4s);
+}
+
+@keyframes amalia-niche-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* A single light sweep across the piece when the niche lights up. */
+.amalia-niche-glint {
+  position: absolute;
+  inset: -40%;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 44%, rgb(255 246 220 / 16%) 50%, transparent 56%);
+  translate: -55% 0;
+}
+
+.amalia-niche:hover .amalia-niche-glint {
+  translate: 55% 0;
+  transition: translate 1.4s var(--ease-luxe);
+}
+
+/* Fallback when a product has no background-free photo yet. */
+.amalia-niche-card {
+  position: absolute;
+  inset: 18% 16% 24%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: white;
+  box-shadow: 0 20px 40px -18px rgb(0 0 0 / 70%);
+  translate: 0 calc(var(--lit) * -10px);
+}
+
+.amalia-niche-reveal {
+  opacity: var(--lit);
+  translate: 0 calc((1 - var(--lit)) * 10px);
+}
+
+.amalia-niche-name {
+  color: rgb(242 239 235 / calc(0.72 + var(--lit) * 0.28));
+}
+
+.amalia-niche-action {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgb(198 165 117 / 35%);
+  border-radius: 999px;
+  color: var(--color-gold-light);
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    scale 300ms var(--ease-luxe);
+}
+
+.amalia-niche-action:hover {
+  border-color: var(--color-gold);
+  background-color: var(--color-gold);
+  color: var(--color-forest-deep);
+  scale: 1.08;
+}
+
+.amalia-niche-action:focus-visible,
+.amalia-niche-cta:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Touch screens: details stay readable; the light follows the scroll. */
+@media (hover: none) {
+  .amalia-niche-reveal {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @supports (animation-timeline: view()) {
+    .amalia-niche {
+      animation: amalia-niche-light linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes amalia-niche-light {
+  0%,
+  28% {
+    --lit: 0;
+  }
+
+  42%,
+  62% {
+    --lit: 1;
+  }
+
+  78%,
+  100% {
+    --lit: 0;
+  }
+}
+
+/* Heart "burst" when a piece is added to favourites. */
+.amalia-wish-burst {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--color-gold);
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+[aria-pressed="true"] > .amalia-wish-burst {
+  animation: amalia-burst 600ms ease-out;
+}
+
+@keyframes amalia-burst {
+  from {
+    opacity: 0.9;
+    scale: 0.4;
+  }
+
+  to {
+    opacity: 0;
+    scale: 2.2;
+  }
+}
+
+/* =========================================
+   Scroll reveal & load-in (CSS only)
+========================================= */
+
+@keyframes amalia-reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--reveal-y, 32px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .amalia-reveal {
+      animation: amalia-reveal linear both;
+      animation-timeline: view();
+      /* Ends on `cover`, not `entry`: elements taller than the screen never finish
+         "entering", which left long blocks (e.g. product details) half-transparent. */
+      animation-range: entry calc(var(--reveal-delay, 0) * 60%) cover calc(16% + var(--reveal-delay, 0) * 12%);
+    }
+  }
+
+  /* Above-the-fold entrance: plays on first paint, no JavaScript needed. */
+  .amalia-enter {
+    animation: amalia-reveal 1.2s var(--ease-luxe) both;
+    animation-delay: var(--enter-delay, 0s);
+  }
 }
 
 /* =========================================
@@ -812,10 +942,6 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .amalia-product {
-    transform: none;
   }
 
   .amalia-zoom:hover img {

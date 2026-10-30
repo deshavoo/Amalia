@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import ShopView from "@/components/shop/ShopView";
 import { categories, getCategory, getProductsByCategory } from "@/data/catalog";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -14,19 +15,12 @@ export async function generateMetadata({ params }: PageProps<"/shop/[category]">
     const category = getCategory((await params).category);
     if (!category) return {};
 
-    const path = `/shop/${category.key}`;
-
-    return {
+    return pageMetadata({
         title: category.seoTitle,
         description: category.description,
-        alternates: { canonical: path },
-        openGraph: {
-            url: path,
-            title: category.seoTitle,
-            description: category.description,
-            images: category.image ? [{ url: category.image, alt: category.alt }] : undefined,
-        },
-    };
+        path: `/shop/${category.key}`,
+        image: category.image ? { url: category.image, alt: category.alt } : undefined,
+    });
 }
 
 export default async function CategoryPage({ params }: PageProps<"/shop/[category]">) {

@@ -57,6 +57,9 @@ export function whatsappLink(message: string) {
     return `https://wa.me/${siteConfig.contact.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
+/** Default "I have a question" chat used by the header, footer and contact page. */
+export const contactWhatsappUrl = whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا");
+
 export function absoluteUrl(path = "/") {
     return new URL(path, siteConfig.url).toString();
 }

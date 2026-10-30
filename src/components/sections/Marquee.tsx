@@ -15,8 +15,9 @@ function MarqueeGroup({ hidden = false }: { hidden?: boolean }) {
             aria-hidden={hidden || undefined}
             className="amalia-marquee-group"
         >
-            {items.map((item) => (
-                <li key={item} className="flex shrink-0 items-center gap-10">
+            {/* Items repeat so one group always outspans wide screens; otherwise the loop shows a gap. */}
+            {[...items, ...items].map((item, index) => (
+                <li key={`${item}-${index}`} className="flex shrink-0 items-center gap-10">
                     <span
                         dir="auto"
                         className={

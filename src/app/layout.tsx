@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Readex_Pro } from "next/font/google";
+import { preload } from "react-dom";
 
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -13,19 +14,23 @@ const readex = Readex_Pro({
   display: "swap",
 });
 
+// Decorative Latin accents only (taglines, numerals), mostly below the fold:
+// one weight, no preload so it never competes with the Arabic text font, and
+// `optional` so a late arrival never shifts the layout (it is cached next visit).
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: "400",
   style: ["normal", "italic"],
-  display: "swap",
+  display: "optional",
+  preload: false,
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.name} | ${siteConfig.nameEn} — مجوهرات ذهب أطفال فاخرة وآمنة`,
-    template: `%s | ${siteConfig.name} ${siteConfig.nameEn}`,
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   keywords: siteConfig.keywords,
@@ -70,6 +75,10 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // Brand marks are CSS masks: discovered late (after CSS) and fetched in CORS mode.
+  preload("/brand/baby-amalia-wordmark.webp", { as: "image", type: "image/webp", crossOrigin: "anonymous", fetchPriority: "high" });
+  preload("/brand/emblem.svg", { as: "image", type: "image/svg+xml", crossOrigin: "anonymous" });
+
   return (
     <html
       lang="ar"

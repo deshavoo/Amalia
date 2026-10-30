@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 
-import ProductCard from "@/components/sections/ProductCard";
+import NicheCard from "@/components/shop/NicheCard";
 import { categories, type Product } from "@/data/taxonomy";
 
 // Folds hamza/taa-marbuta/alef-maqsura variants so "اسوارة" matches "إسواره".
@@ -46,7 +46,7 @@ export default function SearchResults({ products }: { products: Product[] }) {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} role="search" className="flex items-center gap-3 border-b border-forest/30 pb-3">
+            <form onSubmit={handleSubmit} role="search" className="mx-auto flex max-w-2xl items-center gap-3 border-b border-ivory/25 pb-3">
                 <Search size={21} className="shrink-0 text-gold" aria-hidden="true" />
                 <input
                     type="search"
@@ -54,18 +54,18 @@ export default function SearchResults({ products }: { products: Product[] }) {
                     onChange={(event) => setQuery(event.target.value)}
                     placeholder="ابحثي عن أقراط، سلسال الفراشة، أو رمز القطعة..."
                     aria-label="اكتبي اسم المنتج"
-                    className="min-w-0 flex-1 bg-transparent py-2 text-base text-forest outline-none placeholder:text-forest/45"
+                    className="min-w-0 flex-1 bg-transparent py-2 text-base text-ivory outline-none placeholder:text-ivory/40"
                 />
             </form>
 
-            <p aria-live="polite" className="mt-6 mb-10 text-sm text-forest/60">
+            <p aria-live="polite" className="mt-6 mb-12 text-center text-sm text-ivory/60">
                 {terms.length ? `${results.length} نتيجة` : "اكتبي كلمة للبحث بين قطعنا."}
             </p>
 
-            <ul className="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-6 sm:gap-y-14 lg:grid-cols-3 xl:grid-cols-4">
+            <ul className="grid grid-cols-2 gap-x-5 gap-y-14 pt-2 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-12 xl:grid-cols-4">
                 {results.map(({ product }) => (
                     <li key={product.id}>
-                        <ProductCard product={product} sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 50vw" />
+                        <NicheCard product={product} />
                     </li>
                 ))}
             </ul>

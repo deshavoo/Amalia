@@ -1,26 +1,21 @@
-import type { Metadata } from "next";
 import { ArrowLeft, Camera, Ghost, MessageCircle, Music2, Phone } from "lucide-react";
 
 import PageHeader from "@/components/ui/PageHeader";
 import Reveal from "@/components/ui/Reveal";
-import { siteConfig, whatsappLink } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { contactWhatsappUrl, siteConfig } from "@/lib/site";
 
 const description =
     "يسعدنا تواصلك معنا للاستفسار عن القطع، أو طلب تخصيص بالاسم، أو متابعة طلبك — عبر واتساب أو الهاتف أو حساباتنا على التواصل الاجتماعي.";
 
-export const metadata: Metadata = {
-    title: "تواصلي معنا",
-    description,
-    alternates: { canonical: "/contact" },
-    openGraph: { url: "/contact", title: "تواصلي معنا", description },
-};
+export const metadata = pageMetadata({ title: "تواصلي معنا", description, path: "/contact" });
 
 const channels = [
     {
         icon: MessageCircle,
         title: "واتساب",
         value: "أسرع طريقة للطلب والاستفسار",
-        href: whatsappLink("مرحبا، عندي استفسار من متجر بيبي أماليا"),
+        href: contactWhatsappUrl,
     },
     {
         icon: Phone,
@@ -77,7 +72,7 @@ export default function ContactPage() {
                                 </span>
                                 <span className="min-w-0 flex-1">
                                     <span className="block text-base font-medium text-forest">{title}</span>
-                                    <span dir={ltr ? "ltr" : undefined} className="mt-1 block truncate text-sm text-forest/60">
+                                    <span dir={ltr ? "ltr" : undefined} className="mt-1 block truncate text-sm text-forest/70">
                                         {value}
                                     </span>
                                 </span>

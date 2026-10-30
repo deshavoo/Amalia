@@ -39,7 +39,7 @@ const CAMPAIGN_ASSETS = [
     ["RAXdwD/OA9wBxXCDWEHgBTBGyMaPbbcJygbMjuQqzkwjiVk.jpg", "images/category-earrings.webp"],
     ["RAXdwD/MBBM5fOwdZVsuIqJ6WuMZK6NaA0547GZ9NumdXPh.png", "images/category-necklaces.webp"],
 ];
-const WORDMARK = ["RAXdwD/Ya496032YQe9W2eB18Ty5oZWOBmnbO32vO3hu378.png", "brand/baby-amalia-wordmark.png"];
+const WORDMARK = ["RAXdwD/Ya496032YQe9W2eB18Ty5oZWOBmnbO32vO3hu378.png", "brand/baby-amalia-wordmark.webp"];
 
 async function getJson(url) {
     const response = await fetch(url, { headers: HEADERS });
@@ -189,6 +189,10 @@ async function main() {
             width: meta.width,
             height: meta.height,
             blur: await blurDataUrl(file),
+            // Background-free photo from scripts/cutout-products.mjs, when it exists.
+            cutout: existsSync(path.join(PRODUCTS_DIR, "cut", `${product.id}.webp`))
+                ? `/products/cut/${product.id}.webp`
+                : undefined,
             ...details,
             sallaUrl: `${STORE_URL}/${shortKey}`,
         };
