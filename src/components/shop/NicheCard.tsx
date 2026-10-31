@@ -91,7 +91,7 @@ export default function NicheCard({
                 </h3>
 
                 <div className="amalia-niche-reveal">
-                    <p className="mt-1.5 text-base font-medium text-gold-light">{formatPrice(product.price)}</p>
+                    <p className="mt-1.5 text-base font-medium text-gold-light tabular-nums">{formatPrice(product.price)}</p>
 
                     <div className="relative z-10 mt-4 flex items-center justify-center gap-2">
                         <WishButton name={product.name} />
@@ -99,7 +99,7 @@ export default function NicheCard({
                         <Link
                             href={href}
                             tabIndex={-1}
-                            className="amalia-niche-cta inline-flex h-10 items-center gap-1.5 rounded-full bg-gold px-4 text-xs font-medium text-forest-deep transition-colors hover:bg-gold-light sm:px-5 sm:text-sm"
+                            className="amalia-niche-cta inline-flex h-11 items-center gap-1.5 rounded-full bg-gold px-4 text-xs font-medium text-forest-deep transition-colors hover:bg-gold-light sm:px-5 sm:text-sm"
                         >
                             اكتشفي
                             <ArrowLeft size={15} strokeWidth={1.5} />

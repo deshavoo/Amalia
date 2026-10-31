@@ -100,7 +100,7 @@ function StoryText({
             className="absolute inset-x-0 top-1/2 -translate-y-1/2"
         >
             <p className="amalia-eyebrow">{chapter.eyebrow}</p>
-            <h3 className="mt-3 text-2xl leading-[1.4] font-medium text-balance text-ivory sm:mt-4 sm:text-4xl xl:text-5xl">
+            <h3 className="font-heading mt-3 text-3xl text-balance text-ivory sm:mt-4 sm:text-4xl xl:text-5xl">
                 {chapter.title}
             </h3>
             <p className="mt-4 max-w-lg text-[15px] leading-7 text-pretty text-ivory/70 sm:mt-5 sm:text-lg sm:leading-8">
@@ -130,7 +130,7 @@ function StoryStatic() {
                     </div>
                     <div>
                         <p className="amalia-eyebrow">{chapter.eyebrow}</p>
-                        <h3 className="mt-4 text-3xl font-medium text-ivory sm:text-4xl">
+                        <h3 className="font-heading mt-4 text-3xl text-ivory sm:text-4xl">
                             {chapter.title}
                         </h3>
                         <p className="mt-5 text-lg leading-8 text-ivory/70">

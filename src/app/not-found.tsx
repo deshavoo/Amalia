@@ -22,7 +22,7 @@ export default function NotFound() {
                 <p lang="en" className="mt-8 font-display text-2xl text-gold italic">
                     404
                 </p>
-                <h1 className="mt-3 text-3xl leading-[1.35] font-medium sm:text-4xl">
+                <h1 className="mt-3 text-3xl sm:text-4xl">
                     هذه القطعة لم تعد في مكانها
                 </h1>
                 <p className="mt-5 text-base leading-8 text-ivory/65 sm:text-lg">

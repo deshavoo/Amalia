@@ -92,7 +92,7 @@ export default function Lookbook() {
             <p className="amalia-eyebrow">Lookbook</p>
             <h2
                 id="lookbook-title"
-                className="mt-4 text-4xl leading-[1.3] font-medium text-ivory sm:text-5xl"
+                className="mt-4 text-4xl text-ivory sm:text-5xl"
             >
                 عالم بيبي أماليا
                 <span lang="en" className="text-gold-gradient block font-display italic">

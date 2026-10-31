@@ -80,8 +80,8 @@ export const categories: Category[] = [
         description:
             "أقراط ذهب لحديثي الولادة بلون حجر شهر الميلاد، رقيقة وآمنة على بشرة المواليد — أجمل هدية للسبوع.",
         seoTitle: "أقراط ذهب لحديثي الولادة بحجر شهر الميلاد",
-        image: "/images/category-earrings.webp",
-        alt: "قرطان ذهبيان على شكل قلب من بيبي أماليا",
+        image: "/images/newborn-satin.webp",
+        alt: "قرطان ذهبيان لحديثي الولادة بحجر أزرق لشهر سبتمبر على ساتان أخضر",
     },
 ];
 

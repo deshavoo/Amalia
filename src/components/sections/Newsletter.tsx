@@ -38,7 +38,7 @@ export default function Newsletter() {
                     <p className="amalia-eyebrow justify-center">عائلة بيبي أماليا</p>
                     <h2
                         id="newsletter-title"
-                        className="mt-4 text-3xl leading-[1.35] font-medium sm:text-4xl lg:text-5xl"
+                        className="mt-4 text-3xl sm:text-4xl lg:text-5xl"
                     >
                         كوني أول من يكتشف الجديد
                     </h2>

@@ -5,6 +5,7 @@
 @import "./effects.css" layer(amalia);
 
 @theme {
+  /* Brand primitives */
   --color-forest: #11312c;
   --color-forest-deep: #0a211d;
   --color-gold: #c6a575;
@@ -12,26 +13,32 @@
   --color-gold-deep: #a7834f;
   /* Small gold text on light backgrounds (4.5:1 on ivory). */
   --color-gold-ink: #7f6136;
+  /* Highlights: lamp light, sparkles, gradient peaks. */
+  --color-gold-glow: #f3e2b5;
   --color-ivory: #f2efeb;
+  --color-ivory-warm: #f7f3ee;
 
+  /* Boutique wall & niche shading (dark → light). */
+  --color-niche-depth: #071915;
+  --color-wall: #0c2722;
+  --color-niche-mid: #0e2d27;
+  --color-niche-floor: #13382f;
+
+  /* Motion */
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
   --font-sans: var(--font-readex), system-ui, sans-serif;
   --font-display: var(--font-cormorant), Georgia, serif;
+  --font-heading: var(--font-amiri), var(--font-readex), serif;
 }
 
 /* =========================================
-   Amalia Jewellery — Brand & Navbar
+   Baby Amalia — Brand & Navbar
 ========================================= */
 
 :root {
-  --amalia-green: #11312c;
-  --amalia-gold: #c6a575;
-  --amalia-ivory: #f2efeb;
-  --amalia-white: #ffffff;
-
   /* Height of the sticky header (announcement + main bar [+ categories on lg]). */
   --header-h: 7rem;
 }
@@ -50,7 +57,7 @@
 
 html {
   scroll-padding-top: calc(var(--header-h) + 1rem);
-  background-color: var(--amalia-ivory);
+  background-color: var(--color-ivory);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -60,30 +67,64 @@ html {
 }
 
 body {
-  background-color: var(--amalia-ivory);
-  color: var(--amalia-green);
+  background-color: var(--color-ivory);
+  color: var(--color-forest);
   font-family: var(--font-sans);
+  /* No 300ms double-tap delay on touch screens. */
+  touch-action: manipulation;
+}
+
+/* Room under the footer for the phone-only sticky buy bar (product pages). */
+@media (max-width: 1023px) {
+  body:has(.amalia-buybar) {
+    padding-bottom: 5.5rem;
+  }
+}
+
+/* Page and section titles speak in the Arabic Naskh heading face. Amiri has a single
+   weight and a smaller eye than Readex, so headings drop the synthetic medium and get
+   a little more size and line height. */
+@layer base {
+  h1,
+  h2,
+  .font-heading {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}
+
+/* Tailwind v4 resets buttons to the default cursor; interactive controls should read as such. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+/* One consistent, on-brand focus ring for keyboard users (components may refine it). */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
 }
 
 ::selection {
-  background-color: var(--amalia-gold);
-  color: var(--amalia-green);
+  background-color: var(--color-gold);
+  color: var(--color-forest);
 }
 
 @layer amalia {
   .amalia-header {
-    color: var(--amalia-green);
+    color: var(--color-forest);
     font-family: inherit;
   }
 
   .amalia-announcement {
-    background-color: var(--amalia-green);
-    color: var(--amalia-ivory);
+    background-color: var(--color-forest);
+    color: var(--color-ivory);
   }
 
   .amalia-brand {
     text-decoration: none;
-    color: var(--amalia-green);
+    color: var(--color-forest);
   }
 
   .amalia-brand-name {
@@ -111,14 +152,14 @@ body {
 
   .amalia-icon-button {
     display: inline-flex;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     border: 1px solid transparent;
     border-radius: 50%;
-    color: var(--amalia-green);
+    color: var(--color-forest);
     background: transparent;
     cursor: pointer;
     transition:
@@ -136,7 +177,7 @@ body {
   .amalia-icon-button:focus-visible,
   .amalia-nav-link:focus-visible,
   .amalia-category-link:focus-visible {
-    outline: 2px solid var(--amalia-gold);
+    outline: 2px solid var(--color-gold);
     outline-offset: 4px;
   }
 
@@ -146,7 +187,7 @@ body {
     align-items: center;
     min-height: 44px;
     white-space: nowrap;
-    color: var(--amalia-green);
+    color: var(--color-forest);
     font-size: 12px;
     font-weight: 500;
     text-decoration: none;
@@ -159,7 +200,7 @@ body {
     bottom: 5px;
     left: 0;
     height: 1px;
-    background-color: var(--amalia-gold);
+    background-color: var(--color-gold);
     content: "";
     transform: scaleX(0);
     transform-origin: right;
@@ -193,7 +234,7 @@ body {
     bottom: 0;
     left: 0;
     height: 2px;
-    background-color: var(--amalia-gold);
+    background-color: var(--color-gold);
     content: "";
     transform: scaleX(0);
     transform-origin: center;
@@ -201,19 +242,25 @@ body {
   }
 
   .amalia-category-link:hover {
-    color: var(--amalia-green);
+    color: var(--color-forest);
   }
 
   .amalia-category-link:hover::after {
     transform: scaleX(1);
   }
 
-  @media (max-width: 639px) {
-    .amalia-icon-button {
-      width: 36px;
-      height: 36px;
-    }
+  /* Current page: keep the underline drawn and the label in gold. */
+  .amalia-nav-link[aria-current="page"],
+  .amalia-category-link[aria-current="page"] {
+    color: var(--color-gold-ink);
+  }
 
+  .amalia-nav-link[aria-current="page"]::after,
+  .amalia-category-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  @media (max-width: 639px) {
     .amalia-brand-name {
       font-size: 1.9rem;
     }

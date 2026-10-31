@@ -56,8 +56,8 @@ export default function GiftExperience() {
                         className="relative aspect-4/5 w-[82%] overflow-hidden rounded-[1.75rem] shadow-2xl"
                     >
                         <Image
-                            src="/images/campaign-box.webp"
-                            alt="علبة مجوهرات أماليا مفتوحة وبداخلها أسورة ذهبية مع شريط أخضر"
+                            src="/images/gift-satin-bracelet.webp"
+                            alt="إسوارة زهرة الكاميليا الذهبية من بيبي أماليا على ساتان أخضر"
                             fill
                             sizes="(min-width: 1024px) 38vw, 80vw"
                             className="object-cover"
@@ -73,8 +73,8 @@ export default function GiftExperience() {
                         className="absolute -bottom-10 left-0 aspect-4/5 w-[48%] overflow-hidden rounded-[1.25rem] shadow-[0_30px_80px_-20px_rgb(0_0_0/60%)] ring-1 ring-gold/30"
                     >
                         <Image
-                            src="/images/detail-box-lid.webp"
-                            alt="غطاء علبة أماليا الخضراء بالشعار الذهبي"
+                            src="/images/detail-flowers.webp"
+                            alt="زهور بيضاء ناعمة وشريط ساتان أخضر بأيقونة أماليا الذهبية"
                             fill
                             sizes="(min-width: 1024px) 22vw, 45vw"
                             className="object-cover"
@@ -87,7 +87,7 @@ export default function GiftExperience() {
                         <p className="amalia-eyebrow">فن الإهداء</p>
                         <h2
                             id="gifts-title"
-                            className="mt-4 text-3xl leading-[1.35] font-medium text-balance sm:text-4xl lg:text-5xl"
+                            className="mt-4 text-3xl text-balance sm:text-4xl lg:text-5xl"
                         >
                             هدية تُفتح بلهفة،
                             <span className="text-gold-gradient block">

@@ -1,5 +1,5 @@
 /* =========================================
-   Amalia Jewellery — Sections, hover & motion effects
+   Baby Amalia — Sections, hover & motion effects
 ========================================= */
 
 .amalia-eyebrow {
@@ -28,11 +28,11 @@
 .text-gold-gradient {
   background-image: linear-gradient(
     100deg,
-    #a7834f 0%,
-    #c6a575 25%,
-    #f3e2b5 45%,
-    #c6a575 60%,
-    #a7834f 100%
+    var(--color-gold-deep) 0%,
+    var(--color-gold) 25%,
+    var(--color-gold-glow) 45%,
+    var(--color-gold) 60%,
+    var(--color-gold-deep) 100%
   );
   background-size: 250% 100%;
   background-position: 35% 0;
@@ -142,10 +142,10 @@
 .amalia-btn--gold {
   background: linear-gradient(
     110deg,
-    #a7834f,
-    #c6a575 40%,
-    #e8d3a4 70%,
-    #c6a575
+    var(--color-gold-deep),
+    var(--color-gold) 40%,
+    var(--color-gold-light) 70%,
+    var(--color-gold)
   );
   color: var(--color-forest);
   box-shadow: 0 10px 30px -10px rgb(198 165 117 / 60%);
@@ -294,7 +294,7 @@
   position: absolute;
   z-index: 0;
   rotate: 45deg;
-  background: linear-gradient(135deg, #f3e2b5, #a7834f);
+  background: linear-gradient(135deg, var(--color-gold-glow), var(--color-gold-deep));
   box-shadow: 0 0 18px rgb(232 211 164 / 70%);
   pointer-events: none;
   animation: amalia-float 7s ease-in-out infinite;
@@ -598,7 +598,7 @@
 }
 
 .amalia-emblem--gold {
-  background: linear-gradient(to top right, #a7834f 0%, #c6a575 55%, #ecd8a8 100%);
+  background: linear-gradient(to top right, var(--color-gold-deep) 0%, var(--color-gold) 55%, var(--color-gold-glow) 100%);
 }
 
 /* =========================================
@@ -616,7 +616,7 @@
 .amalia-wall {
   background:
     radial-gradient(ellipse 70% 45% at 50% 0%, rgb(198 165 117 / 9%), transparent 70%),
-    linear-gradient(180deg, #0c2722 0%, var(--color-forest-deep) 100%);
+    linear-gradient(180deg, var(--color-wall) 0%, var(--color-forest-deep) 100%);
 }
 
 .amalia-niche {
@@ -647,7 +647,7 @@
     radial-gradient(ellipse 23% 2.6% at 50% 82.5%, rgb(0 0 0 / calc(0.6 - var(--lit) * 0.25)), transparent),
     linear-gradient(rgb(232 211 164 / calc(0.1 + var(--lit) * 0.18)), rgb(232 211 164 / calc(0.1 + var(--lit) * 0.18))) bottom 17% left 0 / 100% 1px no-repeat,
     linear-gradient(180deg, rgb(255 255 255 / 5%), rgb(0 0 0 / 30%)) bottom / 100% 17% no-repeat,
-    linear-gradient(180deg, #071915 0%, #0e2d27 48%, #13382f 100%);
+    linear-gradient(180deg, var(--color-niche-depth) 0%, var(--color-niche-mid) 48%, var(--color-niche-floor) 100%);
   box-shadow:
     inset 0 46px 50px -34px rgb(0 0 0 / 80%),
     inset 22px 0 30px -26px rgb(0 0 0 / 65%),
@@ -687,7 +687,7 @@
   height: 3px;
   translate: -50% 0;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, #f3e2b5, transparent);
+  background: linear-gradient(90deg, transparent, var(--color-gold-glow), transparent);
   box-shadow: 0 0 calc(8px + var(--lit) * 26px) rgb(243 226 181 / calc(0.35 + var(--lit) * 0.55));
   content: "";
   opacity: calc(0.45 + var(--lit) * 0.55);
@@ -765,8 +765,8 @@
 .amalia-niche-action {
   display: inline-grid;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 1px solid rgb(198 165 117 / 35%);
   border-radius: 999px;
   color: var(--color-gold-light);

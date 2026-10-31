@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
     AnimatePresence,
     motion,
@@ -66,6 +66,9 @@ const iconLinks = [
 
 export default function Navbar() {
     const router = useRouter();
+    const pathname = usePathname();
+    // Anchors ("/#gifts") never mark a page as current.
+    const current = (href: string) => (!href.includes("#") && href === pathname ? "page" : undefined);
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -166,6 +169,7 @@ export default function Navbar() {
                                 <Link
                                     key={link.href + link.label}
                                     href={link.href}
+                                    aria-current={current(link.href)}
                                     className="amalia-nav-link"
                                 >
                                     {link.label}
@@ -214,6 +218,7 @@ export default function Navbar() {
                             <Link
                                 key={category.href + category.label}
                                 href={category.href}
+                                aria-current={current(category.href)}
                                 className="amalia-category-link"
                             >
                                 {category.label}
@@ -259,7 +264,7 @@ export default function Navbar() {
                             <div className="mb-8 flex items-center justify-between">
                                 <h2
                                     id="amalia-search-title"
-                                    className="text-xl font-medium text-forest sm:text-2xl"
+                                    className="text-xl text-forest sm:text-2xl"
                                 >
                                     ابحثي عن قطعتك المفضلة
                                 </h2>
@@ -390,6 +395,7 @@ export default function Navbar() {
                                     >
                                         <Link
                                             href={link.href}
+                                            aria-current={current(link.href)}
                                             onClick={closeMobileMenu}
                                             className="flex min-h-13.75 items-center justify-between border-b border-forest/10 text-sm font-medium text-forest transition-colors hover:text-gold-deep"
                                         >
@@ -447,6 +453,7 @@ export default function Navbar() {
                                                     <Link
                                                         key={category.href + category.label}
                                                         href={category.href}
+                                                        aria-current={current(category.href)}
                                                         onClick={closeMobileMenu}
                                                         className="flex min-h-10.75 items-center text-sm text-forest/75 transition-colors hover:text-gold-deep"
                                                     >

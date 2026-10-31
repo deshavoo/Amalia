@@ -53,8 +53,8 @@ export const collections: Collection[] = [
         titleEn: "Gifting",
         description: "للسبوع وأعياد الميلاد وكل بداية جميلة",
         href: "/#gifts",
-        image: "/images/campaign-box.webp",
-        alt: "علبة هدايا خضراء مفتوحة وبداخلها إسوارة ذهبية",
+        image: "/images/gift-satin-bracelet.webp",
+        alt: "إسوارة زهرة الكاميليا الذهبية من بيبي أماليا على ساتان أخضر",
     },
 ];
 
@@ -88,8 +88,8 @@ export const storyChapters = [
         eyebrow: "الهدية",
         title: "ذكرى تكبر معها",
         body: "للسبوع وأعياد الميلاد والمناسبات الخاصة؛ قطعة صغيرة تحمل حبًا كبيرًا، وتبقى ذكرى لا تُنسى.",
-        image: "/images/campaign-box.webp",
-        alt: "علبة مجوهرات خضراء مفتوحة وبداخلها إسوارة ذهبية",
+        image: "/images/gift-satin-necklace.webp",
+        alt: "سلسال الفراشة الذهبي من بيبي أماليا تحت ضوء دافئ على ساتان أخضر",
     },
 ];
 
@@ -113,15 +113,15 @@ export const lookbook = [
         alt: "طفلة ترتدي إسوارة ذهب بزهرة الصدف",
     },
     {
-        image: "/images/campaign-box.webp",
+        image: "/images/gift-satin-earrings.webp",
         title: "فن الإهداء",
         caption: "Gifting",
-        alt: "علبة هدايا خضراء مع إسوارة ذهبية",
+        alt: "أقراط الفيونكة الذهبية من بيبي أماليا على ساتان أخضر",
     },
     {
-        image: "/images/campaign-ribbon.webp",
-        title: "توقيعنا الذهبي",
-        caption: "Signature",
-        alt: "شرائط ساتان خضراء بتوقيع ذهبي",
+        image: "/images/detail-flowers.webp",
+        title: "لمسة رقيقة",
+        caption: "Soft Touch",
+        alt: "زهور بيضاء ناعمة بجانب شريط ساتان أخضر بأيقونة أماليا الذهبية",
     },
 ];

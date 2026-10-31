@@ -36,8 +36,6 @@ const CAMPAIGN_ASSETS = [
     ["form-builder/3B9Gy0Yltzt94l5pEj6jAfl2RK9prbogIjSeg6mn.png", "images/kids-necklace.webp"],
     ["form-builder/9JcNCs0gbNrbGGhSuBtLKB7RgnbyOq14ralNixsx.png", "images/kids-earrings.webp"],
     ["form-builder/YfKZ8pdrlTipwN3aoI1VwI4sVoyPfpqYKvg2nf61.png", "images/kids-bracelet.webp"],
-    ["RAXdwD/OA9wBxXCDWEHgBTBGyMaPbbcJygbMjuQqzkwjiVk.jpg", "images/category-earrings.webp"],
-    ["RAXdwD/MBBM5fOwdZVsuIqJ6WuMZK6NaA0547GZ9NumdXPh.png", "images/category-necklaces.webp"],
 ];
 const WORDMARK = ["RAXdwD/Ya496032YQe9W2eB18Ty5oZWOBmnbO32vO3hu378.png", "brand/baby-amalia-wordmark.webp"];
 

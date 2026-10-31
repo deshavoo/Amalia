@@ -30,6 +30,7 @@ export default async function CategoryPage({ params }: PageProps<"/shop/[categor
     return (
         <ShopView
             active={category.key}
+            image={category.image ? { src: category.image, alt: category.alt ?? category.title } : undefined}
             eyebrow={category.titleEn}
             title={category.seoTitle}
             description={category.description}

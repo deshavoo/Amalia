@@ -28,14 +28,14 @@ export default function KidsCollection() {
         <section
             id="newborn"
             aria-labelledby="kids-title"
-            className="relative overflow-hidden bg-[#f7f3ee] py-24 sm:py-32"
+            className="relative overflow-hidden bg-ivory-warm py-24 sm:py-32"
         >
             <div className="mx-auto grid max-w-[1600px] items-center gap-14 px-4 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:px-12">
                 <Reveal>
                     <p className="amalia-eyebrow">Newborn Birthstones</p>
                     <h2
                         id="kids-title"
-                        className="mt-4 text-3xl leading-[1.35] font-medium text-balance text-forest sm:text-4xl lg:text-5xl"
+                        className="mt-4 text-3xl text-balance text-forest sm:text-4xl lg:text-5xl"
                     >
                         أقراط المواليد… أول ذهب في حياتها
                     </h2>
@@ -93,7 +93,7 @@ export default function KidsCollection() {
                             />
                         </div>
 
-                        <div className="absolute -bottom-6 -left-4 grid size-28 place-items-center rounded-full bg-forest shadow-2xl ring-8 ring-[#f7f3ee] sm:size-32">
+                        <div className="absolute -bottom-6 -left-4 grid size-28 place-items-center rounded-full bg-forest shadow-2xl ring-8 ring-ivory-warm sm:size-32">
                             <Emblem className="amalia-spin-slow size-14" />
                         </div>
                     </div>

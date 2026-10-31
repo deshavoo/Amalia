@@ -5,6 +5,7 @@ import { ArrowLeft, CreditCard, Gem, MessageCircle, RefreshCcw, Sparkles, Truck 
 import { JsonLdScript } from "@/components/JsonLd";
 import ProductGallery from "@/components/shop/ProductGallery";
 import ProductGrid from "@/components/shop/ProductGrid";
+import StickyBuyBar from "@/components/shop/StickyBuyBar";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import MagneticLink from "@/components/ui/MagneticLink";
 import SectionHeading from "@/components/ui/SectionHeading";
@@ -178,7 +179,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                             {category.titleEn}
                             {product.karat && ` · ${product.karat}K Gold`}
                         </p>
-                        <h1 className="mt-4 text-3xl leading-[1.35] font-medium text-balance text-forest sm:text-4xl">
+                        <h1 className="mt-4 text-3xl text-balance text-forest sm:text-4xl">
                             {product.name}
                         </h1>
                         {product.code && (
@@ -188,7 +189,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                         )}
 
                         <div className="mt-6 flex flex-wrap items-center gap-4">
-                            <p className="text-2xl font-medium text-forest sm:text-3xl">{formatPrice(product.price)}</p>
+                            <p className="text-2xl font-medium text-forest tabular-nums sm:text-3xl">{formatPrice(product.price)}</p>
                             <span
                                 className={
                                     product.available
@@ -235,7 +236,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                                         <Icon size={18} strokeWidth={1.5} />
                                     </span>
                                     <div>
-                                        <h2 className="text-sm font-medium text-forest">{title}</h2>
+                                        <h2 className="font-sans text-sm font-medium text-forest">{title}</h2>
                                         <p className="mt-1 text-sm leading-7 text-forest/65">{text}</p>
                                     </div>
                                 </li>
@@ -243,7 +244,7 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                         </ul>
 
                         <div className="mt-8 rounded-2xl bg-forest p-6 text-ivory">
-                            <h2 className="flex items-center gap-2 text-sm font-medium text-gold">
+                            <h2 className="flex items-center gap-2 font-sans text-sm font-medium text-gold">
                                 <Sparkles size={16} strokeWidth={1.5} />
                                 العناية بالقطعة
                             </h2>
@@ -274,6 +275,13 @@ export default async function ProductPage({ params }: PageProps<"/product/[slug]
                     </div>
                 </section>
             )}
+            <StickyBuyBar
+                name={product.name}
+                price={product.price}
+                available={product.available}
+                orderUrl={product.available ? product.sallaUrl : whatsappLink(orderMessage)}
+                whatsappUrl={whatsappLink(orderMessage)}
+            />
         </main>
     );
 }

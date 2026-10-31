@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search } from "lucide-react";
 
@@ -61,6 +62,27 @@ export default function SearchResults({ products }: { products: Product[] }) {
             <p aria-live="polite" className="mt-6 mb-12 text-center text-sm text-ivory/60">
                 {terms.length ? `${results.length} نتيجة` : "اكتبي كلمة للبحث بين قطعنا."}
             </p>
+
+            {terms.length > 0 && results.length === 0 && (
+                <div className="mx-auto max-w-md text-center">
+                    <p className="text-lg text-ivory">لم نجد قطعة بهذا الاسم.</p>
+                    <p className="mt-2 text-sm leading-7 text-ivory/60">
+                        جربي كلمة أبسط مثل «فراشة» أو «قلب»، أو تجولي في الأقسام:
+                    </p>
+                    <ul className="mt-6 flex flex-wrap justify-center gap-2">
+                        {categories.map((category) => (
+                            <li key={category.key}>
+                                <Link
+                                    href={`/shop/${category.key}`}
+                                    className="inline-flex h-11 items-center rounded-full border border-ivory/20 px-5 text-sm text-ivory/80 transition-colors hover:border-gold hover:text-gold-light"
+                                >
+                                    {category.title}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
 
             <ul className="grid grid-cols-2 gap-x-5 gap-y-14 pt-2 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-12 xl:grid-cols-4">
                 {results.map(({ product }) => (

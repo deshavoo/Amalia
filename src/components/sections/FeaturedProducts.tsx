@@ -22,7 +22,7 @@ export default function FeaturedProducts() {
                     <p className="amalia-eyebrow justify-center">The Boutique</p>
                     <h2
                         id="featured-title"
-                        className="mt-4 text-3xl leading-[1.35] font-medium text-balance sm:text-4xl lg:text-5xl"
+                        className="mt-4 text-3xl text-balance sm:text-4xl lg:text-5xl"
                     >
                         مجموعة <span className="text-gold-gradient">الأميرات</span> الصغيرات
                     </h2>

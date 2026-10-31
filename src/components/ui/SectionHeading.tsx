@@ -44,7 +44,7 @@ export default function SectionHeading({
             <h2
                 id={id}
                 className={cn(
-                    "mt-4 text-3xl leading-[1.35] font-medium text-balance sm:text-4xl lg:text-5xl",
+                    "mt-4 text-3xl text-balance sm:text-4xl lg:text-5xl",
                     tone === "dark" ? "text-ivory" : "text-forest"
                 )}
             >

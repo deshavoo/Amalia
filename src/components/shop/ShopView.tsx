@@ -11,6 +11,7 @@ import ProductGrid from "./ProductGrid";
 
 type ShopViewProps = {
     active?: CategoryKey;
+    image?: { src: string; alt: string };
     eyebrow: string;
     title: string;
     description: string;
@@ -18,12 +19,12 @@ type ShopViewProps = {
     products: Product[];
 };
 
-export default function ShopView({ active, eyebrow, title, description, breadcrumbs, products }: ShopViewProps) {
+export default function ShopView({ active, image, eyebrow, title, description, breadcrumbs, products }: ShopViewProps) {
     const tabs = [{ key: undefined, title: "الكل", href: "/shop" }, ...categories.map((c) => ({ key: c.key, title: c.title, href: `/shop/${c.key}` }))];
 
     return (
         <main id="main-content">
-            <PageHeader eyebrow={eyebrow} title={title} description={description} breadcrumbs={breadcrumbs}>
+            <PageHeader eyebrow={eyebrow} title={title} description={description} breadcrumbs={breadcrumbs} image={image}>
                 <nav aria-label="تصنيفات المتجر" className="mt-10 -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
                     <ul className="flex w-max gap-2">
                         {tabs.map((tab) => {

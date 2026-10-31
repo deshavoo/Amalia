@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Readex_Pro } from "next/font/google";
+import localFont from "next/font/local";
 import { preload } from "react-dom";
 
 import Footer from "@/components/Footer";
@@ -7,6 +8,16 @@ import Navbar from "@/components/Navbar";
 import { siteConfig } from "@/lib/site";
 
 import "./globals.css";
+
+// Arabic Naskh for headings: the calligraphic, jewellery-house voice. Body copy stays in Readex.
+// Amiri Regular subset to Arabic letters, marks, digits and punctuation (108KB -> 72KB):
+// Google's "arabic" subset also ships Quranic marks and presentation forms headings never use.
+const amiri = localFont({
+  src: "./fonts/amiri-arabic.woff2",
+  variable: "--font-amiri",
+  weight: "400",
+  display: "swap",
+});
 
 const readex = Readex_Pro({
   variable: "--font-readex",
@@ -83,7 +94,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="ar"
       dir="rtl"
-      className={`${readex.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${readex.variable} ${amiri.variable} ${cormorant.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a

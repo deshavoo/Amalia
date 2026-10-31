@@ -12,6 +12,7 @@ export default function ShopPage() {
     return (
         <ShopView
             eyebrow="المتجر"
+            image={{ src: "/images/gift-satin-bracelet.webp", alt: "إسوارة زهرة الكاميليا الذهبية من بيبي أماليا على ساتان أخضر" }}
             title={title}
             description={description}
             breadcrumbs={[{ label: "المتجر", href: "/shop" }]}
